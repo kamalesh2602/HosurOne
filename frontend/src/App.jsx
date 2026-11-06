@@ -5,6 +5,7 @@ import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import WeatherPage from './pages/WeatherPage';
 import GovernmentPage from './pages/GovernmentPage';
+import BankPage from './pages/BankPage';
 import PlaceholderPage from './pages/PlaceholderPage';
 import SuggestModal from './components/common/SuggestModal';
 
@@ -59,6 +60,10 @@ export default function App() {
             <Route
               path="/services"
               element={<GovernmentPage onOpenSuggest={handleOpenSuggest} />}
+            />
+            <Route
+              path="/banks"
+              element={<BankPage onOpenSuggest={handleOpenSuggest} />}
             />
             <Route
               path="/explore"
