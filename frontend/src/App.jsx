@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
+import WeatherPage from './pages/WeatherPage';
 import PlaceholderPage from './pages/PlaceholderPage';
 import SuggestModal from './components/common/SuggestModal';
 
@@ -49,6 +50,7 @@ export default function App() {
         <div className="flex-1">
           <Routes>
             <Route path="/" element={<Home onOpenSuggest={handleOpenSuggest} />} />
+            <Route path="/weather" element={<WeatherPage />} />
             <Route
               path="/explore"
               element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}

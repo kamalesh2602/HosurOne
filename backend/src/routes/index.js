@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import config from '../config/env.js';
 import { getDbStatus } from '../config/db.js';
-import weatherRoutes from './weather.routes.js';
+import weatherRoutes from '../modules/weather/weather.routes.js';
 
 const router = Router();
 
@@ -24,8 +24,7 @@ router.get('/health', (req, res) => {
   });
 });
 
-// Weather API
+// Weather API routes
 router.use('/weather', weatherRoutes);
 
 export default router;
-
