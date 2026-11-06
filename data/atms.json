@@ -1,0 +1,86 @@
+[
+  {
+    "id": "atm-sbi-old-busstand",
+    "name": "State Bank of India 24/7 ATM & CDM",
+    "category": "ATM",
+    "description": "24-hour ATM and Cash Deposit Machine (CDM) supporting debit cash withdrawals, PIN generation, and instant cash deposits.",
+    "bankName": "State Bank of India",
+    "address": "11-A, Bagalur Road, Near Old Bus Stand, Hosur - 635109",
+    "locality": "Hosur Main",
+    "pincode": "635109",
+    "latitude": 12.7359,
+    "longitude": 77.8284,
+    "coordinates": {
+      "latitude": 12.7359,
+      "longitude": 77.8284
+    },
+    "hasCashDeposit": true,
+    "sourceUrl": "https://sbi.bank.in/web/atm-locator",
+    "officialSource": "https://sbi.bank.in/web/atm-locator",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "atm-sbi-sipcot-complex",
+    "name": "State Bank of India 24/7 ATM (SIPCOT)",
+    "category": "ATM",
+    "description": "24/7 ATM serving industrial factory employees and transport crew in the SIPCOT industrial corridor.",
+    "bankName": "State Bank of India",
+    "address": "Plot No. 80, Near SIPCOT Phase 1 Main Gate, Hosur - 635126",
+    "locality": "SIPCOT",
+    "pincode": "635126",
+    "latitude": 12.7552,
+    "longitude": 77.8106,
+    "coordinates": {
+      "latitude": 12.7552,
+      "longitude": 77.8106
+    },
+    "hasCashDeposit": false,
+    "sourceUrl": "https://sbi.bank.in/web/atm-locator",
+    "officialSource": "https://sbi.bank.in/web/atm-locator",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "atm-canara-mg-road",
+    "name": "Canara Bank 24/7 ATM",
+    "category": "ATM",
+    "description": "24-hour automated teller machine situated right on MG Road commercial shopping street.",
+    "bankName": "Canara Bank",
+    "address": "15/4, Taluk Office Road junction, MG Road, Hosur - 635109",
+    "locality": "Hosur Main",
+    "pincode": "635109",
+    "latitude": 12.7345,
+    "longitude": 77.8278,
+    "coordinates": {
+      "latitude": 12.7345,
+      "longitude": 77.8278
+    },
+    "hasCashDeposit": false,
+    "sourceUrl": "https://canarabank.com/atm-locator",
+    "officialSource": "https://canarabank.com/atm-locator",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "atm-hdfc-sipcot-gate",
+    "name": "HDFC Bank 24/7 ATM & Recycler",
+    "category": "ATM",
+    "description": "24-hour ATM and cash recycler for debit card cash withdrawals and instant credit to accounts.",
+    "bankName": "HDFC Bank",
+    "address": "Bangalore Road, Near SIPCOT Phase 1 Arch, Hosur - 635126",
+    "locality": "SIPCOT",
+    "pincode": "635126",
+    "latitude": 12.7523,
+    "longitude": 77.8139,
+    "coordinates": {
+      "latitude": 12.7523,
+      "longitude": 77.8139
+    },
+    "hasCashDeposit": true,
+    "sourceUrl": "https://near-me.hdfcbank.com/branch-atm-locator/",
+    "officialSource": "https://near-me.hdfcbank.com/branch-atm-locator/",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified"
+  }
+]

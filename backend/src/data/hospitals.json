@@ -8,11 +8,17 @@
     "locality": "Hosur City",
     "pincode": "635109",
     "phone": "04344-222340",
+    "contact": "04344-222340",
     "emergencyPhone": "108",
     "website": "https://krishnagiri.nic.in/health/",
     "latitude": 12.7291,
     "longitude": 77.8248,
+    "coordinates": {
+      "latitude": 12.7291,
+      "longitude": 77.8248
+    },
     "sourceUrl": "https://krishnagiri.nic.in/health/",
+    "officialSource": "https://krishnagiri.nic.in/health/",
     "lastVerified": "2026-11-06",
     "verificationStatus": "verified"
   },
@@ -25,11 +31,17 @@
     "locality": "SIPCOT",
     "pincode": "635126",
     "phone": "04344-276945",
+    "contact": "04344-276945",
     "emergencyPhone": "108",
     "website": "https://www.esic.gov.in/",
     "latitude": 12.7512,
     "longitude": 77.8142,
+    "coordinates": {
+      "latitude": 12.7512,
+      "longitude": 77.8142
+    },
     "sourceUrl": "https://www.esic.gov.in/",
+    "officialSource": "https://www.esic.gov.in/",
     "lastVerified": "2026-11-06",
     "verificationStatus": "verified"
   },
@@ -42,11 +54,17 @@
     "locality": "Kelamangalam",
     "pincode": "635113",
     "phone": "04347-244222",
+    "contact": "04347-244222",
     "emergencyPhone": "108",
     "website": "https://krishnagiri.nic.in/health/",
     "latitude": 12.6042,
     "longitude": 77.8596,
+    "coordinates": {
+      "latitude": 12.6042,
+      "longitude": 77.8596
+    },
     "sourceUrl": "https://krishnagiri.nic.in/health/",
+    "officialSource": "https://krishnagiri.nic.in/health/",
     "lastVerified": "2026-11-06",
     "verificationStatus": "verified"
   },
@@ -59,11 +77,17 @@
     "locality": "Bagalur",
     "pincode": "635103",
     "phone": "04344-254240",
+    "contact": "04344-254240",
     "emergencyPhone": "108",
     "website": "https://krishnagiri.nic.in/health/",
     "latitude": 12.8274,
     "longitude": 77.8325,
+    "coordinates": {
+      "latitude": 12.8274,
+      "longitude": 77.8325
+    },
     "sourceUrl": "https://krishnagiri.nic.in/health/",
+    "officialSource": "https://krishnagiri.nic.in/health/",
     "lastVerified": "2026-11-06",
     "verificationStatus": "verified"
   },
@@ -76,13 +100,18 @@
     "locality": "Denkanikottai",
     "pincode": "635107",
     "phone": "04347-232250",
+    "contact": "04347-232250",
     "emergencyPhone": "108",
     "website": "https://krishnagiri.nic.in/health/",
     "latitude": 12.5284,
     "longitude": 77.7876,
+    "coordinates": {
+      "latitude": 12.5284,
+      "longitude": 77.7876
+    },
     "sourceUrl": "https://krishnagiri.nic.in/health/",
+    "officialSource": "https://krishnagiri.nic.in/health/",
     "lastVerified": "2026-11-06",
     "verificationStatus": "verified"
   }
 ]
-

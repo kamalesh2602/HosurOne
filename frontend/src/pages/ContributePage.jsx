@@ -308,6 +308,45 @@ export default function ContributePage() {
 
       {/* Main Content Area */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        {/* Contributor Onboarding & GitHub Guide Card */}
+        <div className="bg-white rounded-2xl border border-stone-200 p-5 sm:p-6 mb-8 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-5">
+          <div className="space-y-1.5 max-w-2xl">
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+                Open Source & Community Driven
+              </span>
+              <span className="text-xs text-stone-500 font-medium">• No Coding Required to Contribute</span>
+            </div>
+            <h2 className="text-base sm:text-lg font-bold text-stone-900">
+              Contribute Regional Data to HosurOne
+            </h2>
+            <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
+              We are building a verified regional public directory across 7 categories: Healthcare, Dining, Banks & ATMs, Parks & Lakes, Public Services, Transport, and Local Shops. Read our contributor guide or submit directly via GitHub issue forms.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap sm:flex-nowrap md:flex-col gap-2 shrink-0">
+            <a
+              href="https://github.com/kamalesh2602/HosurOne/blob/main/CONTRIBUTING.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-semibold text-xs transition-colors shadow-2xs"
+            >
+              <span>Contributor Guide</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+            <a
+              href="https://github.com/kamalesh2602/HosurOne/blob/main/DATA_GUIDELINES.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 border border-stone-200 font-semibold text-xs transition-colors"
+            >
+              <span>Data Guidelines</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
+
         {/* Navigation Tabs */}
         <div className="flex items-center border-b border-stone-200 gap-2 sm:gap-4 mb-6">
           <button

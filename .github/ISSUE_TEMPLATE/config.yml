@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "📖 HosurOne Contributor Guide (CONTRIBUTING.md)"
+    url: "https://github.com/kamalesh2602/HosurOne/blob/main/CONTRIBUTING.md"
+    about: "Read our beginner-friendly guide before contributing regional records."
+  - name: "📊 Data Quality Guidelines (DATA_GUIDELINES.md)"
+    url: "https://github.com/kamalesh2602/HosurOne/blob/main/DATA_GUIDELINES.md"
+    about: "Review the quality standards, naming conventions, and anti-fabrication rules."

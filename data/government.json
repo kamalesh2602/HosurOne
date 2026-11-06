@@ -1,0 +1,220 @@
+[
+  {
+    "id": "gov-hosur-corp-hq",
+    "name": "Hosur City Municipal Corporation (HQ)",
+    "department": "Municipal Administration & Water Supply Department, Govt. of Tamil Nadu",
+    "category": "Municipal Corporation",
+    "description": "Headquarters of the Hosur City Municipal Corporation managing civic infrastructure, drinking water, sanitation, trade licences, and urban town planning across 45 municipal wards.",
+    "address": "Bagalur Road, Near Railway Station, Hosur - 635109",
+    "locality": "Hosur City",
+    "pincode": "635109",
+    "contact": "04344-244243",
+    "phone": "04344-244243",
+    "email": "commr.hosur@tn.gov.in",
+    "website": "https://www.tnurbantree.tn.gov.in/hosur/",
+    "latitude": 12.7383,
+    "longitude": 77.8286,
+    "coordinates": {
+      "latitude": 12.7383,
+      "longitude": 77.8286
+    },
+    "sourceUrl": "https://www.tnurbantree.tn.gov.in/hosur/contact-us/",
+    "officialSource": "https://www.tnurbantree.tn.gov.in/hosur/contact-us/",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified",
+    "servicesOffered": [
+      "Property Tax Assessment & Collection",
+      "Birth and Death Certificate Registration",
+      "Building Plan Approvals",
+      "Trade Licences & Public Health",
+      "Drinking Water Supply & Drainage Complaints",
+      "Streetlight Maintenance"
+    ],
+    "workingHours": "Monday – Friday: 10:00 AM – 5:45 PM"
+  },
+  {
+    "id": "gov-hosur-taluk-office",
+    "name": "Hosur Taluk Office (Tahsildar)",
+    "department": "Revenue & Disaster Management Department, Govt. of Tamil Nadu",
+    "category": "Taluk & Revenue",
+    "description": "Primary revenue administration office for Hosur Taluk providing community, nativity, income certificates, patta land transfers, and legal heir processing.",
+    "address": "Taluk Office Road, Near Old Bus Stand, Hosur - 635109",
+    "locality": "Hosur City",
+    "pincode": "635109",
+    "contact": "04344-242033",
+    "phone": "04344-242033",
+    "email": "tah.hosur@tn.gov.in",
+    "website": "https://krishnagiri.nic.in/",
+    "latitude": 12.7354,
+    "longitude": 77.8282,
+    "coordinates": {
+      "latitude": 12.7354,
+      "longitude": 77.8282
+    },
+    "sourceUrl": "https://krishnagiri.nic.in/departments/revenue-administration/",
+    "officialSource": "https://krishnagiri.nic.in/departments/revenue-administration/",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified",
+    "servicesOffered": [
+      "Community, Nativity & Income Certificates",
+      "Patta Transfer & Land Revenue Records",
+      "Legal Heir Certificates",
+      "Grievance Redressal Day (Mondays)",
+      "Disaster Management Services"
+    ],
+    "workingHours": "Monday – Friday: 10:00 AM – 5:45 PM"
+  },
+  {
+    "id": "gov-hosur-rto",
+    "name": "Hosur Regional Transport Office (RTO - TN 70)",
+    "department": "Home, Prohibition and Excise (Transport) Department, Govt. of Tamil Nadu",
+    "category": "Transport & RTO",
+    "description": "District Regional Transport Office handling driving licences (LLR/DL), commercial vehicle fitness certificates, and interstate road permits.",
+    "address": "Sanasandiram, Rayakottai Road, Hosur - 635109",
+    "locality": "Hosur City",
+    "pincode": "635109",
+    "contact": "04344-224422",
+    "phone": "04344-224422",
+    "email": "rto.tn70@nic.in",
+    "website": "https://transport.tn.gov.in/",
+    "latitude": 12.7158,
+    "longitude": 77.8396,
+    "coordinates": {
+      "latitude": 12.7158,
+      "longitude": 77.8396
+    },
+    "sourceUrl": "https://transport.tn.gov.in/",
+    "officialSource": "https://transport.tn.gov.in/",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified",
+    "servicesOffered": [
+      "Learner's Licence (LLR) & Driving Licence (DL)",
+      "Vehicle Registration & RC Transfers",
+      "Fitness Certificates (FC) for Commercial Fleets",
+      "Interstate Permits (TN-KA Border)"
+    ],
+    "workingHours": "Monday – Friday: 10:00 AM – 5:45 PM"
+  },
+  {
+    "id": "gov-hosur-police-town",
+    "name": "Hosur Town Police Station (B1)",
+    "department": "Tamil Nadu Police Department, Krishnagiri District",
+    "category": "Police Station",
+    "description": "Principal municipal police station handling law enforcement, crime prevention, and community public safety within Hosur city limits.",
+    "address": "Near Gandhi Statue, MG Road, Hosur - 635109",
+    "locality": "Hosur City",
+    "pincode": "635109",
+    "contact": "04344-242030",
+    "phone": "04344-242030",
+    "email": "hosurtownps@tnpolice.gov.in",
+    "website": "https://eservices.tnpolice.gov.in/",
+    "latitude": 12.7336,
+    "longitude": 77.8277,
+    "coordinates": {
+      "latitude": 12.7336,
+      "longitude": 77.8277
+    },
+    "sourceUrl": "https://eservices.tnpolice.gov.in/",
+    "officialSource": "https://eservices.tnpolice.gov.in/",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified",
+    "servicesOffered": [
+      "Community Policing & Complaint Registration (FIR/CSR)",
+      "Lost Document Verification (LDR)",
+      "Police Verification Services (PVR)",
+      "Traffic Control & Night Patrol"
+    ],
+    "workingHours": "Open 24 Hours Daily"
+  },
+  {
+    "id": "gov-hosur-tangedco",
+    "name": "TANGEDCO (TNEB) Hosur Urban Division Office",
+    "department": "Energy Department, Govt. of Tamil Nadu",
+    "category": "Electricity Office",
+    "description": "Electrical distribution and maintenance division handling residential, commercial, and industrial power connections and grid breakdown redressal.",
+    "address": "Hanumanth Nagar, Bagalur Road, Hosur - 635109",
+    "locality": "Hosur City",
+    "pincode": "635109",
+    "contact": "04344-242224",
+    "phone": "04344-242224",
+    "email": "eehosur@tnebnet.org",
+    "website": "https://www.tangedco.org/",
+    "latitude": 12.7412,
+    "longitude": 77.8315,
+    "coordinates": {
+      "latitude": 12.7412,
+      "longitude": 77.8315
+    },
+    "sourceUrl": "https://www.tangedco.org/",
+    "officialSource": "https://www.tangedco.org/",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified",
+    "servicesOffered": [
+      "New Electricity Service Connection Applications",
+      "Name Transfer & Tariff Changes",
+      "Power Outage Grievance Redressal",
+      "Industrial High Tension (HT) Power Inquiries"
+    ],
+    "workingHours": "Monday – Saturday: 9:00 AM – 5:00 PM"
+  },
+  {
+    "id": "gov-denkanikottai-taluk",
+    "name": "Denkanikottai Taluk Office",
+    "department": "Revenue & Disaster Management Department, Govt. of Tamil Nadu",
+    "category": "Taluk & Revenue",
+    "description": "Administrative taluk headquarters for the southern hill tracts and forest boundaries of the Hosur region.",
+    "address": "Denkanikottai Main Road, Denkanikottai - 635107",
+    "locality": "Denkanikottai",
+    "pincode": "635107",
+    "contact": "04347-232233",
+    "phone": "04347-232233",
+    "email": "tah.denkani@tn.gov.in",
+    "website": "https://krishnagiri.nic.in/",
+    "latitude": 12.5293,
+    "longitude": 77.7884,
+    "coordinates": {
+      "latitude": 12.5293,
+      "longitude": 77.7884
+    },
+    "sourceUrl": "https://krishnagiri.nic.in/departments/revenue-administration/",
+    "officialSource": "https://krishnagiri.nic.in/departments/revenue-administration/",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified",
+    "servicesOffered": [
+      "Community & Revenue Certificates",
+      "Agricultural Land Patta Settlements",
+      "Public Welfare Scheme Registrations"
+    ],
+    "workingHours": "Monday – Friday: 10:00 AM – 5:45 PM"
+  },
+  {
+    "id": "gov-shoolagiri-taluk",
+    "name": "Shoolagiri Taluk Office",
+    "department": "Revenue & Disaster Management Department, Govt. of Tamil Nadu",
+    "category": "Taluk & Revenue",
+    "description": "Taluk headquarters handling revenue administration along the NH44 national industrial and agricultural transport corridor.",
+    "address": "NH44 Highway Corridor, Shoolagiri Town - 635117",
+    "locality": "Shoolagiri",
+    "pincode": "635117",
+    "contact": "04344-252233",
+    "phone": "04344-252233",
+    "email": "tah.shoolagiri@tn.gov.in",
+    "website": "https://krishnagiri.nic.in/",
+    "latitude": 12.6654,
+    "longitude": 78.0142,
+    "coordinates": {
+      "latitude": 12.6654,
+      "longitude": 78.0142
+    },
+    "sourceUrl": "https://krishnagiri.nic.in/departments/revenue-administration/",
+    "officialSource": "https://krishnagiri.nic.in/departments/revenue-administration/",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified",
+    "servicesOffered": [
+      "Revenue Certificates & Land Inquiries",
+      "Highway Zone Industrial Land Administration",
+      "Public Grievance Redressal"
+    ],
+    "workingHours": "Monday – Friday: 10:00 AM – 5:45 PM"
+  }
+]

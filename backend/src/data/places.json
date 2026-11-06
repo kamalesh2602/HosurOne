@@ -9,8 +9,13 @@
     "pincode": "635109",
     "latitude": 12.7235,
     "longitude": 77.8285,
+    "coordinates": {
+      "latitude": 12.7235,
+      "longitude": 77.8285
+    },
     "timings": "6:00 AM – 12:30 PM & 4:30 PM – 8:30 PM",
     "sourceUrl": "https://hrce.tn.gov.in/",
+    "officialSource": "https://hrce.tn.gov.in/",
     "lastVerified": "2026-11-06",
     "verificationStatus": "verified"
   },
@@ -24,8 +29,13 @@
     "pincode": "635109",
     "latitude": 12.7368,
     "longitude": 77.8334,
+    "coordinates": {
+      "latitude": 12.7368,
+      "longitude": 77.8334
+    },
     "timings": "5:30 AM – 8:00 PM Daily",
     "sourceUrl": "https://www.tnurbantree.tn.gov.in/hosur/",
+    "officialSource": "https://www.tnurbantree.tn.gov.in/hosur/",
     "lastVerified": "2026-11-06",
     "verificationStatus": "verified"
   },
@@ -39,8 +49,13 @@
     "pincode": "635109",
     "latitude": 12.7981,
     "longitude": 77.8488,
+    "coordinates": {
+      "latitude": 12.7981,
+      "longitude": 77.8488
+    },
     "timings": "9:00 AM – 5:30 PM",
     "sourceUrl": "https://krishnagiri.nic.in/tourist-place/kelavarapalli-dam/",
+    "officialSource": "https://krishnagiri.nic.in/tourist-place/kelavarapalli-dam/",
     "lastVerified": "2026-11-06",
     "verificationStatus": "verified"
   },
@@ -54,8 +69,13 @@
     "pincode": "635109",
     "latitude": 12.7042,
     "longitude": 77.8436,
+    "coordinates": {
+      "latitude": 12.7042,
+      "longitude": 77.8436
+    },
     "timings": "9:30 AM – 5:30 PM (Closed on Tuesdays)",
     "sourceUrl": "https://krishnagiri.nic.in/tourist-place/rajaji-memorial/",
+    "officialSource": "https://krishnagiri.nic.in/tourist-place/rajaji-memorial/",
     "lastVerified": "2026-11-06",
     "verificationStatus": "verified"
   },
@@ -69,8 +89,13 @@
     "pincode": "635118",
     "latitude": 12.5826,
     "longitude": 77.6534,
+    "coordinates": {
+      "latitude": 12.5826,
+      "longitude": 77.6534
+    },
     "timings": "Open access during daylight hours",
     "sourceUrl": "https://krishnagiri.nic.in/",
+    "officialSource": "https://krishnagiri.nic.in/",
     "lastVerified": "2026-11-06",
     "verificationStatus": "verified"
   },
@@ -84,10 +109,14 @@
     "pincode": "635107",
     "latitude": 12.5298,
     "longitude": 77.7889,
+    "coordinates": {
+      "latitude": 12.5298,
+      "longitude": 77.7889
+    },
     "timings": "6:30 AM – 12:00 PM & 5:00 PM – 8:30 PM",
     "sourceUrl": "https://hrce.tn.gov.in/",
+    "officialSource": "https://hrce.tn.gov.in/",
     "lastVerified": "2026-11-06",
     "verificationStatus": "verified"
   }
 ]
-
