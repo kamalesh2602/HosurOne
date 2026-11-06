@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
-import { Menu, X, Globe, Sparkles } from 'lucide-react';
+import { NavLink, Link } from 'react-router-dom';
+import { Menu, X, Globe, Sparkles, Building, Landmark } from 'lucide-react';
 
 export default function Navbar({ onOpenSuggest }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [language, setLanguage] = useState('en'); // 'en' | 'ta'
   const [langNotice, setLangNotice] = useState(null);
-  const location = useLocation();
 
   const navLinks = [
     { name: 'Home', path: '/' },
+    { name: 'Public Services', path: '/government' },
+    { name: 'Bank Branches', path: '/banks' },
+    { name: 'Weather', path: '/weather' },
     { name: 'Explore', path: '/explore' },
     { name: 'Transport', path: '/transport' },
-    { name: 'Public Services', path: '/services' },
     { name: 'Community', path: '/community' },
     { name: 'Opportunities', path: '/opportunities' },
   ];
@@ -20,7 +21,7 @@ export default function Navbar({ onOpenSuggest }) {
   const handleLanguageToggle = (lang) => {
     setLanguage(lang);
     if (lang === 'ta') {
-      setLangNotice('தமிழ் மொழிபெயர்ப்பு உருவாக்கத்தில் உள்ளது. (Tamil localization in progress)');
+      setLangNotice('தமிழ் மொழிபெயர்ப்பு செயல்பாட்டில் உள்ளது. (Tamil localization in progress)');
     } else {
       setLangNotice('English selected (Primary language).');
     }
@@ -37,7 +38,7 @@ export default function Navbar({ onOpenSuggest }) {
       <div className="bg-emerald-950 text-white text-[11px] sm:text-xs py-1 px-4 text-center font-medium tracking-wide">
         <span className="inline-flex items-center gap-1.5 opacity-90">
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-          Hosur Regional Portal • Dedicated to Hosur, Bagalur, Kelamangalam, Denkanikottai & Shoolagiri
+          Hosur Regional Portal • Covering Hosur City, Bagalur, Kelamangalam, Denkanikottai & Shoolagiri
         </span>
       </div>
 
@@ -49,7 +50,6 @@ export default function Navbar({ onOpenSuggest }) {
             onClick={closeMobileMenu}
             className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700 rounded-lg p-1"
           >
-            {/* Custom Forest Green Civic Emblem */}
             <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-emerald-800 text-white flex items-center justify-center font-black text-xl sm:text-2xl shadow-xs group-hover:bg-emerald-900 transition-colors border border-emerald-700/50">
               <span className="tracking-tighter">H</span>
               <span className="text-emerald-300 text-sm font-semibold -ml-0.5">1</span>
@@ -60,7 +60,7 @@ export default function Navbar({ onOpenSuggest }) {
                   Hosur<span className="text-emerald-800">One</span>
                 </span>
                 <span className="hidden sm:inline-block text-[10px] uppercase font-semibold tracking-wider px-1.5 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded">
-                  Civic
+                  Civic Portal
                 </span>
               </div>
               <span className="text-[11px] text-stone-500 font-medium tracking-tight -mt-0.5 hidden xs:block">
@@ -70,14 +70,14 @@ export default function Navbar({ onOpenSuggest }) {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-1" aria-label="Main Navigation">
+          <nav className="hidden xl:flex items-center space-x-1" aria-label="Main Navigation">
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
                 end={link.path === '/'}
                 className={({ isActive }) =>
-                  `px-3.5 py-2 rounded-xl text-sm font-medium transition-all duration-150 ${
+                  `px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-150 ${
                     isActive
                       ? 'bg-emerald-50 text-emerald-900 font-semibold shadow-2xs border border-emerald-200/80'
                       : 'text-stone-600 hover:text-emerald-800 hover:bg-stone-100/70'
@@ -121,22 +121,21 @@ export default function Navbar({ onOpenSuggest }) {
               </button>
             </div>
 
-            {/* Contribute CTA */}
+            {/* Submit / Contribute CTA */}
             {onOpenSuggest && (
               <button
                 type="button"
                 onClick={() => onOpenSuggest('place')}
-                className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium rounded-xl bg-stone-900 text-white hover:bg-stone-800 transition-colors shadow-2xs cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-emerald-800 text-white hover:bg-emerald-900 transition-colors shadow-2xs cursor-pointer"
               >
                 <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                <span>Contribute</span>
+                <span>Submit Info</span>
               </button>
             )}
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex items-center gap-2 lg:hidden">
-            {/* Compact language switcher on mobile */}
+          <div className="flex items-center gap-2 xl:hidden">
             <button
               type="button"
               onClick={() => handleLanguageToggle(language === 'en' ? 'ta' : 'en')}
@@ -168,12 +167,12 @@ export default function Navbar({ onOpenSuggest }) {
         </div>
       )}
 
-      {/* Mobile Navigation Drawer / Dropdown */}
+      {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-stone-200 bg-white px-4 pt-3 pb-6 space-y-2 shadow-lg animate-in slide-in-from-top-2 duration-150">
+        <div className="xl:hidden border-t border-stone-200 bg-white px-4 pt-3 pb-6 space-y-2 shadow-lg animate-in slide-in-from-top-2 duration-150 max-h-[80vh] overflow-y-auto">
           <div className="flex items-center justify-between pb-2 border-b border-stone-100">
             <span className="text-xs font-semibold uppercase tracking-wider text-stone-400">
-              Navigation Menu
+              HosurOne Navigation
             </span>
             <div className="flex items-center bg-stone-100 p-0.5 rounded-lg border border-stone-200 text-xs">
               <button
@@ -205,7 +204,7 @@ export default function Navbar({ onOpenSuggest }) {
                 end={link.path === '/'}
                 onClick={closeMobileMenu}
                 className={({ isActive }) =>
-                  `flex items-center px-4 py-3 rounded-xl text-base font-medium transition-colors ${
+                  `flex items-center px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                     isActive
                       ? 'bg-emerald-50 text-emerald-900 font-semibold border border-emerald-200'
                       : 'text-stone-700 hover:bg-stone-50 hover:text-emerald-800'
@@ -228,7 +227,7 @@ export default function Navbar({ onOpenSuggest }) {
                 className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-800 text-white font-medium text-sm hover:bg-emerald-900 transition-colors shadow-2xs cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-amber-300" />
-                <span>Suggest a Place or Update</span>
+                <span>Submit Verified Information</span>
               </button>
             </div>
           )}
@@ -237,4 +236,3 @@ export default function Navbar({ onOpenSuggest }) {
     </header>
   );
 }
-

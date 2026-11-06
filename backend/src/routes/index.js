@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import config from '../config/env.js';
 import { getDbStatus } from '../config/db.js';
-import weatherRoutes from './weather.routes.js';
+import weatherRoutes from '../modules/weather/weather.routes.js';
+import governmentRoutes from '../modules/government/government.routes.js';
+import bankRoutes from '../modules/banks/bank.routes.js';
 
 const router = Router();
 
 /**
  * Health check endpoint: GET /api/health
- * Returns service status, uptime, environment, and DB connectivity without exposing secrets
  */
 router.get('/health', (req, res) => {
   res.status(200).json({
@@ -24,8 +25,13 @@ router.get('/health', (req, res) => {
   });
 });
 
-// Weather API
+// Weather API routes
 router.use('/weather', weatherRoutes);
 
-export default router;
+// Government & Public Services API routes
+router.use('/government', governmentRoutes);
 
+// Bank Branch Finder API routes
+router.use('/banks', bankRoutes);
+
+export default router;
