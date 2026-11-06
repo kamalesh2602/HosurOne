@@ -72,3 +72,4 @@ export async function fetchBankBranchById(id, { signal } = {}) {
 }
 
 export default { fetchBankBranches, fetchBankBranchById };
+

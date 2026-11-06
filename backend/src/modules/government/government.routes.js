@@ -10,3 +10,4 @@ router.get('/', getAllOffices);
 router.get('/:id', getOfficeById);
 
 export default router;
+

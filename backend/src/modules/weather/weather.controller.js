@@ -35,3 +35,4 @@ export async function getWeatherForecast(req, res, next) {
 }
 
 export default { getCurrentWeather, getWeatherForecast };
+

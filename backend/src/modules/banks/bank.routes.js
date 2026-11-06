@@ -10,3 +10,4 @@ router.get('/', getAllBanks);
 router.get('/:id', getBankById);
 
 export default router;
+

@@ -92,3 +92,4 @@ test('GET /api/banks/invalid-ifsc returns 404', async () => {
   assert.equal(json.success, false);
   assert.equal(json.error.status, 404);
 });
+

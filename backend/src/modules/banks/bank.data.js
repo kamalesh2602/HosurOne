@@ -300,3 +300,4 @@ export const verifiedBankBranches = [
 ];
 
 export default verifiedBankBranches;
+

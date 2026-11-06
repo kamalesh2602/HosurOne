@@ -497,3 +497,4 @@ export default function GovernmentPage({ onOpenSuggest }) {
     </main>
   );
 }
+

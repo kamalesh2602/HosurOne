@@ -72,3 +72,4 @@ export async function fetchGovernmentOfficeById(id, { signal } = {}) {
 }
 
 export default { fetchGovernmentOffices, fetchGovernmentOfficeById };
+

@@ -54,3 +54,4 @@ export async function getOfficeById(req, res, next) {
 }
 
 export default { getAllOffices, getOfficeById };
+

@@ -81,3 +81,4 @@ test('GET /api/government/invalid-id returns 404', async () => {
   assert.equal(json.success, false);
   assert.equal(json.error.status, 404);
 });
+

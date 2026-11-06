@@ -54,3 +54,4 @@ export async function getBankById(req, res, next) {
 }
 
 export default { getAllBanks, getBankById };
+

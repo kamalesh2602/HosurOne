@@ -35,3 +35,4 @@ export class WeatherProvider {
 }
 
 export default WeatherProvider;
+

@@ -54,3 +54,4 @@ test('GET /api/weather/forecast returns hourly and 7-day daily forecast', async 
   assert.equal(typeof firstDay.minTemp, 'number');
   assert.ok(firstDay.condition);
 });
+

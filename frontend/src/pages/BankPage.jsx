@@ -390,3 +390,4 @@ export default function BankPage({ onOpenSuggest }) {
     </main>
   );
 }
+

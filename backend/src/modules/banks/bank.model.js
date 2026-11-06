@@ -97,3 +97,4 @@ export const BankBranch =
   mongoose.models.BankBranch || mongoose.model('BankBranch', bankBranchSchema);
 
 export default BankBranch;
+

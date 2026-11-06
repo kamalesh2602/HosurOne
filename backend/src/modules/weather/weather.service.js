@@ -100,3 +100,4 @@ export async function getWeatherForecast(forceRefresh = false) {
 }
 
 export default { getCurrentWeather, getWeatherForecast };
+
