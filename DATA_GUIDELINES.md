@@ -132,3 +132,4 @@ npm run validate:data
 ```
 
 The validator confirms JSON syntax, required fields, unique IDs, coordinate ranges, and URL formats. Pull requests with validation errors cannot be merged.
+

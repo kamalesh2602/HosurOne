@@ -103,3 +103,4 @@ npm run validate:data
 - Valid coordinate bounds (latitude -90 to 90, longitude -180 to 180, and regional Hosur bounds check).
 - Valid HTTP/HTTPS source URL format.
 - Valid `YYYY-MM-DD` date formatting for `lastVerified`.
+

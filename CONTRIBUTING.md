@@ -174,3 +174,4 @@ Photographs make places tangible and welcoming for residents.
 - **Community Credit:** All contributors who submit verified records will be listed in our `CONTRIBUTORS.md` roll of honor and release notes.
 
 Thank you for helping map and preserve the living civic memory of Hosur!
+

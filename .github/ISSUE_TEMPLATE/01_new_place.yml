@@ -111,3 +111,4 @@ body:
           required: true
         - label: "I have checked the HosurOne directory and confirmed this place is not a duplicate."
           required: true
+

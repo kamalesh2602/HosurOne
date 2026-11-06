@@ -128,3 +128,4 @@ test('GET /api/directory/all aggregates places, hospitals, and ATMs without drop
   assert.ok(json.data.some((item) => item.category === 'Government Hospital' || item.category.includes('Hospital')));
   assert.ok(json.data.some((item) => item.category === 'ATM'));
 });
+

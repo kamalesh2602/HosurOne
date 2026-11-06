@@ -59,3 +59,4 @@ Instances of abusive, harassing, or otherwise unacceptable behavior may be repor
 ---
 
 *HosurOne Community Code of Conduct is adapted from the Contributor Covenant, version 2.1, with region-specific data integrity provisions for civic information.*
+
