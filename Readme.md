@@ -132,11 +132,36 @@ npm run build
 
 ---
 
+## Verified Data Sources
+
+HosurOne enforces strict anti-fabrication standards:
+1. **Government Directory:** Verified against public disclosures from the [Hosur City Municipal Corporation](https://www.tnurbantree.tn.gov.in/hosur/), Krishnagiri District Administration, Tamil Nadu Police, TNEB/TANGEDCO, and TNeGA.
+2. **Bank Branch Finder:** Verified against the Reserve Bank of India (RBI) Public IFSC Database and official bank locators (State Bank of India, Canara Bank, Indian Bank, HDFC, ICICI, Bank of Baroda, Axis Bank, IOB, Kotak).
+3. **Weather Telemetry:** Real-time Automated Weather Station (AWS) telemetry sourced via Open-Meteo for coordinates 12.7409° N, 77.8253° E (Elevation ~862m).
+4. **Community Submissions & Places:** Curated local landmark datasets in `backend/src/data/` merged with published community submissions subject to Haversine duplicate detection (< 50m) and administrative review.
+5. **OpenStreetMap & Leaflet:** Regional maps utilize OpenStreetMap standard cartographic tiles (`&copy; OpenStreetMap contributors`) with strict isolation—community submissions are curated internally within HosurOne and do not automate unauthorized changes to external OSM data.
+
+---
+
 ## Available API Endpoints
 
 | Endpoint | Method | Description |
 |---|---|---|
 | `/api/health` | GET | System status, uptime, environment, and database state |
+| `/api/auth/register` | POST | Register a new community member |
+| `/api/auth/login` | POST | Authenticate and obtain JWT token |
+| `/api/auth/me` | GET | Current authenticated user profile |
+| `/api/submissions` | POST | Submit a new place or suggest a correction (Member / Contributor) |
+| `/api/submissions/mine` | GET | List contributions submitted by logged-in user |
+| `/api/submissions/:id` | GET | View submission details |
+| `/api/submissions/:id` | PATCH | Update submission (e.g. submitter providing requested clarifications) |
+| `/api/admin/submissions` | GET | Admin review queue with status and category filters |
+| `/api/admin/submissions/:id/review` | PATCH | Review action: `publish`, `approve`, `reject`, `request_info`, `unpublish` |
+| `/api/admin/users/:id/verification` | PATCH | Grant/revoke Verified Contributor status and permitted categories |
+| `/api/places` | GET | Public directory of places, parks, lakes, and monuments |
+| `/api/hospitals` | GET | Public directory of hospitals, PHCs, and clinics |
+| `/api/atms` | GET | Public directory of 24/7 bank ATMs |
+| `/api/contacts` | GET | Emergency helplines and municipal contacts |
 | `/api/weather` | GET | Real-time Hosur weather telemetry (cached for 10 min, supports `?refresh=true`) |
 | `/api/weather/forecast` | GET | Hourly forecast (24h) and 7-day daily forecast with sunrise/sunset |
 | `/api/government` | GET | Verified government offices directory (`?search=`, `?category=`, `?locality=`, `?page=`, `?limit=`) |
@@ -146,28 +171,17 @@ npm run build
 
 ---
 
-## Verified Data Sources
-
-HosurOne enforces strict anti-fabrication standards:
-1. **Government Directory:** Verified against public disclosures from the [Hosur City Municipal Corporation](https://www.tnurbantree.tn.gov.in/hosur/), Krishnagiri District Administration, Tamil Nadu Police, TNEB/TANGEDCO, and TNeGA.
-2. **Bank Branch Finder:** Verified against the Reserve Bank of India (RBI) Public IFSC Database and official bank locators (State Bank of India, Canara Bank, Indian Bank, HDFC, ICICI, Bank of Baroda, Axis Bank, IOB, Kotak).
-3. **Weather Telemetry:** Real-time Automated Weather Station (AWS) telemetry sourced via Open-Meteo for coordinates 12.7409° N, 77.8253° E (Elevation ~862m).
-
----
-
-## Implemented Modules (Phases 1 – 5)
+## Implemented Modules
 
 - [x] **Phase 1: Homepage Redesign:** Modern civic-tech aesthetic, responsive navigation, search entry point, top-priority compact weather widget beneath hero, 8 quick-access tiles, verified discover/community empty states, and comprehensive footer.
 - [x] **Phase 2: Backend Architecture & API Foundation:** Express app, rate limiting, CORS configuration, error handling, health endpoint, Mongoose database abstraction with offline fallback.
 - [x] **Phase 3: Weather Module:** Provider abstraction (`WeatherProvider` & `OpenMeteoProvider`), 10-minute server caching, `GET /api/weather`, `GET /api/weather/forecast`, dedicated `/weather` page with 24h hourly scroll, 7-day daily outlook, sunrise/sunset, and metrics.
 - [x] **Phase 4: Government Information Directory:** Mongoose model, verified seed dataset, multi-criteria filtering (search, category, locality), `GET /api/government`, dedicated `/government` interactive directory page with directions and source attribution links.
 - [x] **Phase 5: Bank Branch Finder:** Mongoose model, verified seed dataset (SBI, Canara, Indian Bank, HDFC, ICICI, etc.), IFSC search, copy-to-clipboard functionality, `GET /api/banks`, dedicated `/banks` directory page.
-
----
-
-## Current Roadmap & Limitations
-
-- **ATM Finder:** Explicitly deferred as an independent module in a future release. The bank finder does not fabricate ATM availability.
-- **Places & Transport Directory:** Geocoding and field photography verification are actively ongoing with local volunteers.
-- **Language Localization:** English is fully active; Tamil UI translation strings are in active compilation.
-- **Community Submissions:** The interactive submission modal is active for logging public recommendations; member authentication and administrative approval workflows will be implemented in Phase 6.
+- [x] **Phase 6: Community Contributions & OpenStreetMap Integration:**
+  - **Authentication & 4 Contributor Roles:** Guest (public browsing), Member (submit/correct), Verified Contributor (direct publishing for permitted categories), Admin (moderation console, approval, reject with feedback, user privileges).
+  - **Curated JSON Datasets & Dual-Mode Persistence:** Structured records in `backend/src/data/` for government, banks, hospitals, atms, places, and emergency contacts. Seamless MongoDB + in-memory store fallback.
+  - **Moderation Workflow & Duplicate Detection:** Haversine coordinate proximity check (< 50m) and exact name/locality matching. Moderation states: `pending`, `needs_information`, `approved`, `published`, `rejected`. Submitter response drawer for clarification requests.
+  - **OpenStreetMap & Leaflet Integration:** Interactive `LocationPicker` with draggable pin, GPS locator, and regional shortcut pills (Hosur City, SIPCOT, Bagalur, Kelamangalam, Denkanikottai). `MapView` for directory exploration with color-coded pins and direction links.
+  - **Frontend Pages:** Dedicated `/explore` page with Card & Map view modes, `/contribute` portal with New Place, Correction, and My Contributions tabs, and `/admin` Civic Moderation Dashboard.
+  - **Automated Testing:** 30 comprehensive integration tests covering end-to-end auth, submissions, duplicate detection, admin moderation, and public directories.

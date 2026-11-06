@@ -1,0 +1,67 @@
+[
+  {
+    "id": "atm-sbi-old-busstand",
+    "name": "State Bank of India 24/7 ATM & CDM",
+    "category": "ATM",
+    "description": "24-hour ATM and Cash Deposit Machine (CDM) supporting debit cash withdrawals, PIN generation, and instant cash deposits.",
+    "bankName": "State Bank of India",
+    "address": "11-A, Bagalur Road, Near Old Bus Stand, Hosur - 635109",
+    "locality": "Hosur Main",
+    "pincode": "635109",
+    "latitude": 12.7359,
+    "longitude": 77.8284,
+    "hasCashDeposit": true,
+    "sourceUrl": "https://sbi.bank.in/web/atm-locator",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "atm-sbi-sipcot-complex",
+    "name": "State Bank of India 24/7 ATM (SIPCOT)",
+    "category": "ATM",
+    "description": "24/7 ATM serving industrial factory employees and transport crew in the SIPCOT industrial corridor.",
+    "bankName": "State Bank of India",
+    "address": "Plot No. 80, Near SIPCOT Phase 1 Main Gate, Hosur - 635126",
+    "locality": "SIPCOT",
+    "pincode": "635126",
+    "latitude": 12.7552,
+    "longitude": 77.8106,
+    "hasCashDeposit": false,
+    "sourceUrl": "https://sbi.bank.in/web/atm-locator",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "atm-canara-mg-road",
+    "name": "Canara Bank 24/7 ATM",
+    "category": "ATM",
+    "description": "24-hour automated teller machine situated right on MG Road commercial shopping street.",
+    "bankName": "Canara Bank",
+    "address": "15/4, Taluk Office Road junction, MG Road, Hosur - 635109",
+    "locality": "Hosur Main",
+    "pincode": "635109",
+    "latitude": 12.7345,
+    "longitude": 77.8278,
+    "hasCashDeposit": false,
+    "sourceUrl": "https://canarabank.com/atm-locator",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "atm-hdfc-bagalur-road",
+    "name": "HDFC Bank 24/7 ATM & Cash Recycler",
+    "category": "ATM",
+    "description": "Multi-function 24-hour ATM and automated cash recycler accepting cash deposits and cardless cash withdrawals.",
+    "bankName": "HDFC Bank",
+    "address": "Ground Floor, 13/2B, Bagalur Road, Hosur - 635109",
+    "locality": "Hosur Main",
+    "pincode": "635109",
+    "latitude": 12.7391,
+    "longitude": 77.8292,
+    "hasCashDeposit": true,
+    "sourceUrl": "https://www.hdfcbank.com/atm-locator",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified"
+  }
+]
+

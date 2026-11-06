@@ -15,6 +15,10 @@ const config = {
   isProduction: process.env.NODE_ENV === 'production',
   clientUrl: process.env.CLIENT_URL || 'http://localhost:5173',
   mongodbUri: process.env.MONGODB_URI || '',
+  jwt: {
+    secret: process.env.JWT_SECRET || 'hosurone_civic_secret_key_change_in_prod_2026',
+    expiresIn: process.env.JWT_EXPIRES_IN || '7d',
+  },
   weather: {
     provider: process.env.WEATHER_PROVIDER || 'openmeteo',
     latitude: parseFloat(process.env.WEATHER_LAT || '12.7409'),
