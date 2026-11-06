@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Menu, X, Globe, Sparkles, Building, Landmark } from 'lucide-react';
+import { Menu, X, Globe, Sparkles, Shield, User, LogOut, CheckCircle2 } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 export default function Navbar({ onOpenSuggest }) {
+  const { user, isLoggedIn, isAdmin, logout, quickLoginAs } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [language, setLanguage] = useState('en'); // 'en' | 'ta'
   const [langNotice, setLangNotice] = useState(null);
 
   const navLinks = [
     { name: 'Home', path: '/' },
+    { name: 'Explore', path: '/explore' },
     { name: 'Public Services', path: '/government' },
     { name: 'Bank Branches', path: '/banks' },
     { name: 'Weather', path: '/weather' },
-    { name: 'Explore', path: '/explore' },
-    { name: 'Transport', path: '/transport' },
-    { name: 'Community', path: '/community' },
-    { name: 'Opportunities', path: '/opportunities' },
+    { name: 'Contribute', path: '/contribute' },
   ];
+
+  if (isAdmin) {
+    navLinks.push({ name: 'Admin Moderation', path: '/admin' });
+  }
 
   const handleLanguageToggle = (lang) => {
     setLanguage(lang);
@@ -70,7 +74,7 @@ export default function Navbar({ onOpenSuggest }) {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center space-x-1" aria-label="Main Navigation">
+          <nav className="hidden lg:flex items-center space-x-1" aria-label="Main Navigation">
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}
@@ -121,6 +125,33 @@ export default function Navbar({ onOpenSuggest }) {
               </button>
             </div>
 
+            {/* Auth / Account status */}
+            {isLoggedIn ? (
+              <div className="flex items-center gap-2 bg-stone-50 border border-stone-200 rounded-xl px-2.5 py-1 text-xs">
+                <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span className="font-semibold text-stone-800 max-w-[100px] truncate">{user.name}</span>
+                <span className="text-[10px] uppercase font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800">
+                  {user.role === 'verified_contributor' ? 'Verified' : user.role}
+                </span>
+                <button
+                  type="button"
+                  onClick={logout}
+                  title="Sign out"
+                  className="p-1 text-stone-400 hover:text-rose-600 rounded transition-colors"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ) : (
+              <Link
+                to="/contribute"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 border border-stone-200 transition-colors"
+              >
+                <User className="w-3.5 h-3.5" />
+                <span>Sign In</span>
+              </Link>
+            )}
+
             {/* Submit / Contribute CTA */}
             {onOpenSuggest && (
               <button
@@ -135,7 +166,7 @@ export default function Navbar({ onOpenSuggest }) {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex items-center gap-2 xl:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
             <button
               type="button"
               onClick={() => handleLanguageToggle(language === 'en' ? 'ta' : 'en')}
@@ -169,7 +200,7 @@ export default function Navbar({ onOpenSuggest }) {
 
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="xl:hidden border-t border-stone-200 bg-white px-4 pt-3 pb-6 space-y-2 shadow-lg animate-in slide-in-from-top-2 duration-150 max-h-[80vh] overflow-y-auto">
+        <div className="lg:hidden border-t border-stone-200 bg-white px-4 pt-3 pb-6 space-y-2 shadow-lg animate-in slide-in-from-top-2 duration-150 max-h-[80vh] overflow-y-auto">
           <div className="flex items-center justify-between pb-2 border-b border-stone-100">
             <span className="text-xs font-semibold uppercase tracking-wider text-stone-400">
               HosurOne Navigation
@@ -216,8 +247,35 @@ export default function Navbar({ onOpenSuggest }) {
             ))}
           </div>
 
-          {onOpenSuggest && (
+          {isLoggedIn ? (
+            <div className="pt-3 border-t border-stone-100 flex items-center justify-between px-2 text-xs">
+              <span className="font-semibold text-stone-800">{user.name} ({user.role})</span>
+              <button
+                type="button"
+                onClick={() => {
+                  logout();
+                  closeMobileMenu();
+                }}
+                className="text-rose-600 font-medium"
+              >
+                Sign Out
+              </button>
+            </div>
+          ) : (
             <div className="pt-3 border-t border-stone-100">
+              <Link
+                to="/contribute"
+                onClick={closeMobileMenu}
+                className="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-xl bg-stone-100 text-stone-800 font-medium text-xs hover:bg-stone-200 transition-colors"
+              >
+                <User className="w-3.5 h-3.5" />
+                <span>Sign In / Register</span>
+              </Link>
+            </div>
+          )}
+
+          {onOpenSuggest && (
+            <div className="pt-2">
               <button
                 type="button"
                 onClick={() => {

@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext.jsx';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import WeatherPage from './pages/WeatherPage';
 import GovernmentPage from './pages/GovernmentPage';
 import BankPage from './pages/BankPage';
+import ExplorePage from './pages/ExplorePage';
+import ContributePage from './pages/ContributePage';
+import AdminDashboardPage from './pages/AdminDashboardPage';
 import PlaceholderPage from './pages/PlaceholderPage';
 import SuggestModal from './components/common/SuggestModal';
 
@@ -42,75 +46,85 @@ export default function App() {
   };
 
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <div className="min-h-screen flex flex-col bg-stone-50 text-stone-900 font-sans selection:bg-emerald-100 selection:text-emerald-900">
-        {/* Navigation Bar */}
-        <Navbar onOpenSuggest={handleOpenSuggest} />
+    <AuthProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <div className="min-h-screen flex flex-col bg-stone-50 text-stone-900 font-sans selection:bg-emerald-100 selection:text-emerald-900">
+          {/* Navigation Bar */}
+          <Navbar onOpenSuggest={handleOpenSuggest} />
 
-        {/* Page Content */}
-        <div className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home onOpenSuggest={handleOpenSuggest} />} />
-            <Route path="/weather" element={<WeatherPage />} />
-            <Route
-              path="/government"
-              element={<GovernmentPage onOpenSuggest={handleOpenSuggest} />}
-            />
-            <Route
-              path="/services"
-              element={<GovernmentPage onOpenSuggest={handleOpenSuggest} />}
-            />
-            <Route
-              path="/banks"
-              element={<BankPage onOpenSuggest={handleOpenSuggest} />}
-            />
-            <Route
-              path="/explore"
-              element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
-            />
-            <Route
-              path="/transport"
-              element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
-            />
-            <Route
-              path="/community"
-              element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
-            />
-            <Route
-              path="/opportunities"
-              element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
-            />
-            <Route
-              path="/about"
-              element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
-            />
-            <Route
-              path="/contact"
-              element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
-            />
-            <Route
-              path="/privacy"
-              element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
-            />
-            <Route
-              path="*"
-              element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
-            />
-          </Routes>
+          {/* Page Content */}
+          <div className="flex-1">
+            <Routes>
+              <Route path="/" element={<Home onOpenSuggest={handleOpenSuggest} />} />
+              <Route path="/weather" element={<WeatherPage />} />
+              <Route
+                path="/government"
+                element={<GovernmentPage onOpenSuggest={handleOpenSuggest} />}
+              />
+              <Route
+                path="/services"
+                element={<GovernmentPage onOpenSuggest={handleOpenSuggest} />}
+              />
+              <Route
+                path="/banks"
+                element={<BankPage onOpenSuggest={handleOpenSuggest} />}
+              />
+              <Route
+                path="/explore"
+                element={<ExplorePage onOpenSuggest={handleOpenSuggest} />}
+              />
+              <Route
+                path="/contribute"
+                element={<ContributePage onOpenSuggest={handleOpenSuggest} />}
+              />
+              <Route
+                path="/admin"
+                element={<AdminDashboardPage onOpenSuggest={handleOpenSuggest} />}
+              />
+              <Route
+                path="/transport"
+                element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
+              />
+              <Route
+                path="/community"
+                element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
+              />
+              <Route
+                path="/opportunities"
+                element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
+              />
+              <Route
+                path="/about"
+                element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
+              />
+              <Route
+                path="/contact"
+                element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
+              />
+              <Route
+                path="/privacy"
+                element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
+              />
+              <Route
+                path="*"
+                element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
+              />
+            </Routes>
+          </div>
+
+          {/* Footer */}
+          <Footer onOpenSuggest={handleOpenSuggest} />
+
+          {/* Interactive Community Contribution / Suggestion Modal */}
+          <SuggestModal
+            isOpen={modalState.isOpen}
+            onClose={handleCloseSuggest}
+            initialType={modalState.type}
+            categoryHint={modalState.categoryHint}
+          />
         </div>
-
-        {/* Footer */}
-        <Footer onOpenSuggest={handleOpenSuggest} />
-
-        {/* Interactive Community Contribution / Suggestion Modal */}
-        <SuggestModal
-          isOpen={modalState.isOpen}
-          onClose={handleCloseSuggest}
-          initialType={modalState.type}
-          categoryHint={modalState.categoryHint}
-        />
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }

@@ -1,0 +1,81 @@
+[
+  {
+    "id": "cont-emergency-112",
+    "name": "Emergency Response Support System (ERSS)",
+    "category": "Emergency Services",
+    "description": "Unified 24/7 national emergency contact for police, fire, and ambulance response across Tamil Nadu.",
+    "phone": "112",
+    "tollFree": true,
+    "agency": "Ministry of Home Affairs & Tamil Nadu Police",
+    "locality": "All Hosur Region",
+    "sourceUrl": "https://112.gov.in/",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "cont-medical-108",
+    "name": "Emergency Medical Ambulance Service (GVK-EMRI)",
+    "category": "Health & Medical",
+    "description": "24-hour emergency ambulance dispatch for road accidents, critical trauma, and maternity emergencies.",
+    "phone": "108",
+    "tollFree": true,
+    "agency": "Health & Family Welfare Dept, Govt. of Tamil Nadu",
+    "locality": "All Hosur Region",
+    "sourceUrl": "https://krishnagiri.nic.in/health/",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "cont-hosur-corp-helpline",
+    "name": "Hosur City Municipal Corporation Toll-Free Control Room",
+    "category": "Municipal Helplines",
+    "description": "Public grievance reporting for drinking water supply disruptions, garbage overflow, streetlights, and drainage issues.",
+    "phone": "1800-425-4243",
+    "alternatePhone": "04344-244243",
+    "tollFree": true,
+    "agency": "Hosur City Municipal Corporation",
+    "locality": "Hosur City",
+    "sourceUrl": "https://www.tnurbantree.tn.gov.in/hosur/",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "cont-tneb-1912",
+    "name": "TANGEDCO (TNEB) Electricity Complaint Call Centre",
+    "category": "Public Utilities",
+    "description": "24/7 toll-free helpline for reporting electric shock hazards, power blackouts, transformer sparks, and billing grievances.",
+    "phone": "1912",
+    "tollFree": true,
+    "agency": "Tamil Nadu Generation and Distribution Corporation Ltd",
+    "locality": "All Hosur Region",
+    "sourceUrl": "https://www.tangedco.org/",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "cont-women-181",
+    "name": "Tamil Nadu Women Helpline",
+    "category": "Women & Child Safety",
+    "description": "24-hour toll-free tele-counseling and immediate rescue intervention for women facing domestic distress, harassment, or violence.",
+    "phone": "181",
+    "tollFree": true,
+    "agency": "Social Welfare & Women Empowerment Dept",
+    "locality": "All Hosur Region",
+    "sourceUrl": "https://cms.tn.gov.in/",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "cont-child-1098",
+    "name": "Childline National Emergency Service",
+    "category": "Women & Child Safety",
+    "description": "24-hour emergency assistance and protection service for children in need of care and rehabilitation.",
+    "phone": "1098",
+    "tollFree": true,
+    "agency": "Ministry of Women and Child Development",
+    "locality": "All Hosur Region",
+    "sourceUrl": "https://childlineindia.org/",
+    "lastVerified": "2026-11-06",
+    "verificationStatus": "verified"
+  }
+]
