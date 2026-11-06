@@ -184,3 +184,4 @@ export default function LocationPicker({ value, onChange }) {
     </div>
   );
 }
+

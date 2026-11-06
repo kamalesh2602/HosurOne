@@ -284,3 +284,4 @@ export default function ExplorePage({ onOpenSuggest }) {
     </div>
   );
 }
+

@@ -47,3 +47,4 @@ export async function getMe(req, res) {
 }
 
 export default { register, login, getMe };
+

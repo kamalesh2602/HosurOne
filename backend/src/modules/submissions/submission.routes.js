@@ -17,3 +17,4 @@ router.get('/:id', optionalAuthenticate, getById);
 router.patch('/:id', authenticate, update);
 
 export default router;
+

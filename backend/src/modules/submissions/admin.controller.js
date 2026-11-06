@@ -104,3 +104,4 @@ export default {
   updateUserVerification,
   updateUserStatus,
 };
+

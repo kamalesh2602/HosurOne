@@ -101,3 +101,4 @@ export async function optionalAuthenticate(req, res, next) {
 }
 
 export default { authenticate, authorize, optionalAuthenticate };
+

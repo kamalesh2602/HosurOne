@@ -122,3 +122,4 @@ export default function MapView({ items = [], selectedId, onSelect, height = '48
     </div>
   );
 }
+

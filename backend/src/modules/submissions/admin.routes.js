@@ -25,3 +25,4 @@ router.patch('/users/:id/verification', updateUserVerification);
 router.patch('/users/:id/status', updateUserStatus);
 
 export default router;
+

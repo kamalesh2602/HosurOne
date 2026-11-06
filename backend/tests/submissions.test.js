@@ -289,3 +289,4 @@ test('Public directory endpoints return verified datasets', async () => {
   assert.ok(contactsJson.data.length >= 6);
   assert.ok(contactsJson.data.some((c) => c.phone === '108' || c.phone === '100'));
 });
+

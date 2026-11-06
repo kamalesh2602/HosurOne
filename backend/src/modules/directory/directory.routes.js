@@ -15,3 +15,4 @@ router.get('/atms', getAtms);
 router.get('/contacts', getContacts);
 
 export default router;
+
