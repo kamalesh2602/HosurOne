@@ -75,11 +75,10 @@ export default function QuickAccess() {
     {
       id: 'atms',
       name: 'ATM Finder',
-      description: '24/7 ATM locations and cash points. (Future module currently in research).',
+      description: 'Verified 24/7 ATM locations, cash deposit machines (CDMs), and cash points across Hosur.',
       icon: CreditCard,
-      path: '#atms-upcoming',
-      isUpcoming: true,
-      iconBg: 'bg-stone-100 text-stone-600',
+      path: '/explore?tab=atms',
+      iconBg: 'bg-indigo-100 text-indigo-800',
     },
   ];
 

@@ -1,33 +1,11 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { loadJsonDataset, normalizeRecord } from '../../utils/dataLoader.js';
 import { getPublishedSubmissions } from '../submissions/submission.service.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const DATA_DIR = path.resolve(__dirname, '../../data');
-
-/**
- * Safely load and parse a JSON dataset file from backend/src/data
- */
-function loadJsonFile(filename) {
-  try {
-    const fullPath = path.join(DATA_DIR, filename);
-    if (fs.existsSync(fullPath)) {
-      const content = fs.readFileSync(fullPath, 'utf8');
-      return JSON.parse(content);
-    }
-  } catch (error) {
-    console.error(`[Directory Service] Failed reading ${filename}:`, error.message);
-  }
-  return [];
-}
 
 /**
  * Transform a published user submission into a directory record format
  */
 function transformSubmissionToRecord(sub) {
-  return {
+  return normalizeRecord({
     id: sub._id ? sub._id.toString() : sub.id,
     name: sub.name,
     category: sub.category,
@@ -39,13 +17,14 @@ function transformSubmissionToRecord(sub) {
     website: sub.website || '',
     latitude: sub.coordinates?.latitude || null,
     longitude: sub.coordinates?.longitude || null,
+    coordinates: sub.coordinates || null,
     sourceUrl: sub.sourceUrl || '',
     photoUrl: sub.photoUrl || '',
     additionalInfo: sub.additionalInfo || '',
     verificationStatus: 'community_published',
     isCommunityContribution: true,
     contributedBy: sub.submittedBy?.name || 'Local Contributor',
-  };
+  });
 }
 
 /**
@@ -64,10 +43,15 @@ function filterAndPaginate(items, { search = '', category = '', locality = '', p
     results = results.filter((item) => (item.category || '').toLowerCase().includes(c));
   }
 
-  // Locality filter
+  // Locality filter (gracefully handling 'Hosur City' vs 'Hosur Main')
   if (locality && locality.toLowerCase() !== 'all') {
     const l = locality.trim().toLowerCase();
-    results = results.filter((item) => (item.locality || '').toLowerCase().includes(l));
+    results = results.filter((item) => {
+      const itemLoc = (item.locality || '').toLowerCase();
+      if (itemLoc.includes(l)) return true;
+      if (l.includes('hosur') && itemLoc.includes('hosur')) return true;
+      return false;
+    });
   }
 
   // Full text search
@@ -78,7 +62,8 @@ function filterAndPaginate(items, { search = '', category = '', locality = '', p
         (item.name || '').toLowerCase().includes(s) ||
         (item.description || '').toLowerCase().includes(s) ||
         (item.address || '').toLowerCase().includes(s) ||
-        (item.locality || '').toLowerCase().includes(s)
+        (item.locality || '').toLowerCase().includes(s) ||
+        (item.category || '').toLowerCase().includes(s)
     );
   }
 
@@ -105,10 +90,9 @@ function filterAndPaginate(items, { search = '', category = '', locality = '', p
  * Get Places & Landmarks (curated + published community submissions)
  */
 export async function getPlaces(params = {}) {
-  const curated = loadJsonFile('places.json');
+  const curated = loadJsonDataset('places.json');
   const publishedSubmissions = await getPublishedSubmissions();
 
-  // Find submissions matching places/tourist/nature/religious categories
   const placeCategories = [
     'parks & lakes',
     'tourist attraction',
@@ -133,7 +117,7 @@ export async function getPlaces(params = {}) {
  * Get Hospitals & Health Clinics (curated + published community submissions)
  */
 export async function getHospitals(params = {}) {
-  const curated = loadJsonFile('hospitals.json');
+  const curated = loadJsonDataset('hospitals.json');
   const publishedSubmissions = await getPublishedSubmissions();
 
   const hospitalCategories = ['hospital', 'clinic', 'health', 'phc', 'pharmacy'];
@@ -153,7 +137,7 @@ export async function getHospitals(params = {}) {
  * Get Bank ATMs (curated + published community submissions)
  */
 export async function getAtms(params = {}) {
-  const curated = loadJsonFile('atms.json');
+  const curated = loadJsonDataset('atms.json');
   const publishedSubmissions = await getPublishedSubmissions();
 
   const matchedSubmissions = publishedSubmissions
@@ -168,7 +152,7 @@ export async function getAtms(params = {}) {
  * Get Important Contacts and Emergency Helplines
  */
 export async function getContacts(params = {}) {
-  const curated = loadJsonFile('contacts.json');
+  const curated = loadJsonDataset('contacts.json');
   const publishedSubmissions = await getPublishedSubmissions();
 
   const matchedSubmissions = publishedSubmissions
@@ -182,10 +166,32 @@ export async function getContacts(params = {}) {
   return filterAndPaginate(combined, params);
 }
 
+/**
+ * Get unified listing of all active regional places, hospitals, and ATMs
+ */
+export async function getAllDirectoryItems(params = {}) {
+  const places = loadJsonDataset('places.json');
+  const hospitals = loadJsonDataset('hospitals.json');
+  const atms = loadJsonDataset('atms.json');
+  const published = (await getPublishedSubmissions()).map(transformSubmissionToRecord);
+
+  const seenIds = new Set();
+  const allItems = [];
+
+  for (const item of [...places, ...hospitals, ...atms, ...published]) {
+    if (!seenIds.has(item.id)) {
+      seenIds.add(item.id);
+      allItems.push(item);
+    }
+  }
+
+  return filterAndPaginate(allItems, params);
+}
+
 export default {
   getPlaces,
   getHospitals,
   getAtms,
   getContacts,
+  getAllDirectoryItems,
 };
-

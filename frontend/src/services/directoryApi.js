@@ -4,7 +4,7 @@
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
 
-async function fetchFromEndpoint(endpoint, { search = '', category = '', locality = '', page = 1, limit = 20, signal } = {}) {
+async function fetchFromEndpoint(endpoint, { search = '', category = '', locality = '', page = 1, limit = 50, signal } = {}) {
   const url = new URL(`${API_BASE_URL}${endpoint}`, window.location.origin);
 
   if (search && search.trim()) url.searchParams.set('search', search.trim());
@@ -26,8 +26,12 @@ async function fetchFromEndpoint(endpoint, { search = '', category = '', localit
 
   return {
     items: json.data || [],
-    pagination: json.pagination || { total: json.data?.length || 0, page: 1, limit: 20, totalPages: 1 },
+    pagination: json.pagination || { total: json.data?.length || 0, page: 1, limit: 50, totalPages: 1 },
   };
+}
+
+export function fetchAllDirectory(params) {
+  return fetchFromEndpoint('/directory/all', params);
 }
 
 export function fetchPlaces(params) {
@@ -47,9 +51,9 @@ export function fetchContacts(params) {
 }
 
 export default {
+  fetchAllDirectory,
   fetchPlaces,
   fetchHospitals,
   fetchAtms,
   fetchContacts,
 };
-

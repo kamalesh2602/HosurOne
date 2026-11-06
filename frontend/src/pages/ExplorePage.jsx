@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
+  fetchAllDirectory,
   fetchPlaces,
   fetchHospitals,
   fetchAtms,
@@ -18,6 +20,9 @@ import {
   ShieldCheck,
   Sparkles,
   Edit3,
+  Clock,
+  CheckCircle2,
+  AlertCircle,
 } from 'lucide-react';
 
 const CATEGORY_TABS = [
@@ -32,6 +37,7 @@ const CATEGORY_TABS = [
 const LOCALITIES = [
   'All Localities',
   'Hosur City',
+  'Hosur Main',
   'SIPCOT',
   'Mookandapalli',
   'Bagalur',
@@ -42,12 +48,26 @@ const LOCALITIES = [
 ];
 
 export default function ExplorePage({ onOpenSuggest }) {
-  const [activeTab, setActiveTab] = useState('all');
-  const [locality, setLocality] = useState('All Localities');
-  const [search, setSearch] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const tabParam = searchParams.get('tab') || searchParams.get('category') || 'all';
+  const matchedTab = CATEGORY_TABS.some((t) => t.id.toLowerCase() === tabParam.toLowerCase())
+    ? CATEGORY_TABS.find((t) => t.id.toLowerCase() === tabParam.toLowerCase())?.id
+    : 'all';
+
+  const [activeTab, setActiveTab] = useState(matchedTab || 'all');
+  const [locality, setLocality] = useState(searchParams.get('locality') || 'All Localities');
+  const [search, setSearch] = useState(searchParams.get('q') || searchParams.get('search') || '');
   const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'map'
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Sync tab change from URL query params
+  useEffect(() => {
+    if (tabParam && matchedTab && matchedTab !== activeTab) {
+      setActiveTab(matchedTab);
+    }
+  }, [tabParam]);
 
   useEffect(() => {
     loadDirectoryItems();
@@ -59,15 +79,17 @@ export default function ExplorePage({ onOpenSuggest }) {
       const locFilter = locality === 'All Localities' ? '' : locality;
       let data = [];
 
-      if (activeTab === 'hospitals') {
+      if (activeTab === 'all') {
+        const res = await fetchAllDirectory({ search, locality: locFilter });
+        data = res.items;
+      } else if (activeTab === 'hospitals') {
         const res = await fetchHospitals({ search, locality: locFilter });
         data = res.items;
       } else if (activeTab === 'atms') {
         const res = await fetchAtms({ search, locality: locFilter });
         data = res.items;
       } else {
-        const catFilter = activeTab === 'all' ? '' : activeTab;
-        const res = await fetchPlaces({ search, category: catFilter, locality: locFilter });
+        const res = await fetchPlaces({ search, category: activeTab, locality: locFilter });
         data = res.items;
       }
 
@@ -79,6 +101,18 @@ export default function ExplorePage({ onOpenSuggest }) {
       setIsLoading(false);
     }
   }
+
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId);
+    const params = new URLSearchParams(searchParams);
+    if (tabId === 'all') {
+      params.delete('tab');
+      params.delete('category');
+    } else {
+      params.set('tab', tabId);
+    }
+    setSearchParams(params, { replace: true });
+  };
 
   return (
     <div className="min-h-screen bg-stone-50 pb-16">
@@ -120,8 +154,8 @@ export default function ExplorePage({ onOpenSuggest }) {
               <button
                 key={tab.id}
                 type="button"
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${
+                onClick={() => handleTabChange(tab.id)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
                   activeTab === tab.id
                     ? 'bg-emerald-800 text-white shadow-2xs'
                     : 'bg-stone-100 hover:bg-stone-200 text-stone-700'
@@ -154,7 +188,7 @@ export default function ExplorePage({ onOpenSuggest }) {
               <button
                 type="button"
                 onClick={() => setViewMode('grid')}
-                className={`p-1.5 rounded-md text-xs font-semibold flex items-center gap-1 transition-colors ${
+                className={`p-1.5 rounded-md text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer ${
                   viewMode === 'grid'
                     ? 'bg-white text-emerald-900 shadow-2xs'
                     : 'text-stone-500 hover:text-stone-800'
@@ -167,7 +201,7 @@ export default function ExplorePage({ onOpenSuggest }) {
               <button
                 type="button"
                 onClick={() => setViewMode('map')}
-                className={`p-1.5 rounded-md text-xs font-semibold flex items-center gap-1 transition-colors ${
+                className={`p-1.5 rounded-md text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer ${
                   viewMode === 'map'
                     ? 'bg-white text-emerald-900 shadow-2xs'
                     : 'text-stone-500 hover:text-stone-800'
@@ -206,7 +240,8 @@ export default function ExplorePage({ onOpenSuggest }) {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {items.map((item) => {
-                  const isCommunity = item.isCommunityContribution;
+                  const phoneNum = item.phone || item.contact;
+                  const sourceLink = item.sourceUrl || item.officialSource || item.website;
 
                   return (
                     <div
@@ -228,22 +263,51 @@ export default function ExplorePage({ onOpenSuggest }) {
                             {item.name}
                           </h3>
                           <p className="text-xs text-stone-600 mt-2 leading-relaxed line-clamp-3">
-                            {item.description}
+                            {item.description || item.department}
                           </p>
                         </div>
 
-                        <div className="pt-2 border-t border-stone-100 text-xs text-stone-600 space-y-1">
-                          <div className="flex items-start gap-1.5">
-                            <MapPin className="w-3.5 h-3.5 text-emerald-700 shrink-0 mt-0.5" />
-                            <span className="line-clamp-2">{item.address}</span>
-                          </div>
+                        <div className="pt-2 border-t border-stone-100 text-xs text-stone-600 space-y-1.5">
+                          {/* Address */}
+                          {item.address && (
+                            <div className="flex items-start gap-1.5">
+                              <MapPin className="w-3.5 h-3.5 text-emerald-700 shrink-0 mt-0.5" />
+                              <span className="line-clamp-2">{item.address}</span>
+                            </div>
+                          )}
 
-                          {item.phone && (
+                          {/* Phone */}
+                          {phoneNum && (
                             <div className="flex items-center gap-1.5 text-stone-700 font-medium">
                               <Phone className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
-                              <a href={`tel:${item.phone}`} className="hover:underline">
-                                {item.phone}
+                              <a href={`tel:${phoneNum}`} className="hover:underline text-emerald-900">
+                                {phoneNum}
                               </a>
+                            </div>
+                          )}
+
+                          {/* Emergency Phone (if any) */}
+                          {item.emergencyPhone && (
+                            <div className="flex items-center gap-1.5 text-rose-700 font-medium text-[11px]">
+                              <AlertCircle className="w-3 h-3 text-rose-600 shrink-0" />
+                              <span>24/7 Casualty Emergency: <strong>{item.emergencyPhone}</strong></span>
+                            </div>
+                          )}
+
+                          {/* Timings */}
+                          {(item.timings || item.workingHours) && (
+                            <div className="flex items-center gap-1.5 text-stone-500 text-[11px]">
+                              <Clock className="w-3 h-3 text-stone-400 shrink-0" />
+                              <span>{item.timings || item.workingHours}</span>
+                            </div>
+                          )}
+
+                          {/* ATM Features */}
+                          {item.category === 'ATM' && item.hasCashDeposit && (
+                            <div className="inline-block mt-1">
+                              <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">
+                                Instant Cash Deposit (CDM)
+                              </span>
                             </div>
                           )}
                         </div>
@@ -260,6 +324,16 @@ export default function ExplorePage({ onOpenSuggest }) {
                           >
                             Directions &rarr;
                           </a>
+                        ) : sourceLink ? (
+                          <a
+                            href={sourceLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 font-medium text-emerald-800 hover:underline"
+                          >
+                            <span>Official Source</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
                         ) : (
                           <span className="text-stone-400">Hosur Region</span>
                         )}
@@ -267,7 +341,7 @@ export default function ExplorePage({ onOpenSuggest }) {
                         <button
                           type="button"
                           onClick={() => onOpenSuggest?.('correction', item.name)}
-                          className="inline-flex items-center gap-1 text-[11px] font-medium text-stone-500 hover:text-emerald-800 transition-colors"
+                          className="inline-flex items-center gap-1 text-[11px] font-medium text-stone-500 hover:text-emerald-800 transition-colors cursor-pointer"
                         >
                           <Edit3 className="w-3 h-3" />
                           Suggest Correction
@@ -284,4 +358,3 @@ export default function ExplorePage({ onOpenSuggest }) {
     </div>
   );
 }
-

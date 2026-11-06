@@ -9,6 +9,7 @@ import submissionRoutes from '../modules/submissions/submission.routes.js';
 import adminRoutes from '../modules/submissions/admin.routes.js';
 import directoryRoutes from '../modules/directory/directory.routes.js';
 import {
+  getAll,
   getPlaces,
   getHospitals,
   getAtms,
@@ -57,6 +58,7 @@ router.use('/banks', bankRoutes);
 router.use('/directory', directoryRoutes);
 
 // Direct alias endpoints for public directory resources
+router.get('/directory/all', getAll);
 router.get('/places', getPlaces);
 router.get('/hospitals', getHospitals);
 router.get('/atms', getAtms);

@@ -1,0 +1,23 @@
+{
+  "name": "hosurone",
+  "version": "1.0.0",
+  "description": "HosurOne – Centralized Digital Information Portal for the Hosur Region",
+  "type": "module",
+  "scripts": {
+    "validate:data": "node scripts/validateData.js",
+    "test": "npm --prefix backend test",
+    "build": "npm --prefix frontend run build",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev"
+  },
+  "keywords": [
+    "hosur",
+    "civic-portal",
+    "tamil-nadu",
+    "open-data",
+    "community-directory"
+  ],
+  "author": "HosurOne Contributors",
+  "license": "MIT"
+}
+

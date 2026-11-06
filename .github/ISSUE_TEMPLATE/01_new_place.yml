@@ -1,0 +1,114 @@
+name: "📍 New Place or Facility Submission"
+description: "Submit a new hospital, restaurant, bank branch, ATM, park, temple, or local facility in the Hosur region."
+title: "[New Place]: "
+labels: ["community-contribution", "new-listing"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Thank you for contributing to HosurOne!
+        Help us map our region. Please fill in whatever information you know or verified.
+        **Rule:** Never guess or fabricate phone numbers or coordinates. If you're not sure, leave it blank!
+
+  - type: input
+    id: place_name
+    attributes:
+      label: "Place or Facility Name"
+      description: "The official name of the place as shown on its building signboard or public registration."
+      placeholder: "e.g., Bagalur Primary Health Centre"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: "Category"
+      description: "Select the most appropriate category for this facility."
+      options:
+        - "Healthcare (Government Hospital, Private Hospital, Clinic, PHC, Pharmacy)"
+        - "Food & Dining (Restaurant, Cafe, Bakery, Mess, Highway Diner)"
+        - "Banks & ATMs (Bank Branch, 24/7 ATM, CDM)"
+        - "Explore & Tourism (Tourist Attraction, Park, Lake, Temple, Heritage)"
+        - "Government & Public Services (Municipal Office, Taluk Office, Police, Electricity, RTO)"
+        - "Transport (Bus Stand, Bus Stop, Railway Station, Auto Stand)"
+        - "Other Local Places (Shop, Market, Library, Community Center)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: locality
+    attributes:
+      label: "Locality / Taluk"
+      description: "Which part of the Hosur region is this place located in?"
+      options:
+        - "Hosur City / Central"
+        - "SIPCOT (Phase 1 & 2 / Mookandapalli)"
+        - "Bagalur"
+        - "Mathigiri"
+        - "Kelamangalam"
+        - "Denkanikottai"
+        - "Shoolagiri"
+        - "Berigai"
+        - "Anchetty"
+        - "Other Nearby Village / Area"
+    validations:
+      required: true
+
+  - type: textarea
+    id: address
+    attributes:
+      label: "Complete Physical Address"
+      description: "Street name, nearby landmark, and pincode if available."
+      placeholder: "e.g., Main Road, Near Government High School, Bagalur - 635103"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description / Public Services Provided"
+      description: "Brief 1-3 sentences explaining what this place is, services available, or its historical/community significance."
+      placeholder: "e.g., 24/7 primary health centre offering outpatient care, maternity room, and emergency first aid."
+    validations:
+      required: true
+
+  - type: input
+    id: phone
+    attributes:
+      label: "Public Contact Phone (Optional)"
+      description: "Landline or official inquiry number. (Do NOT enter private personal mobile numbers)."
+      placeholder: "e.g., 04344-254240"
+
+  - type: input
+    id: website
+    attributes:
+      label: "Official Website or Social Page (Optional)"
+      description: "Official web portal, government URL, or official social profile."
+      placeholder: "https://..."
+
+  - type: input
+    id: coordinates
+    attributes:
+      label: "Map Coordinates or Google Maps / OSM Link (Optional)"
+      description: "Latitude & longitude (e.g., 12.8274, 77.8325) or a share link from OpenStreetMap or Google Maps."
+      placeholder: "e.g., 12.8274, 77.8325 or https://maps.google.com/..."
+
+  - type: textarea
+    id: source
+    attributes:
+      label: "Verification Source or Evidence"
+      description: "How did you verify this place? (e.g., Personal visit on 2026-11-06, official notice, hospital receipt, municipal website)."
+      placeholder: "e.g., Visited in person; verified signboard and outdoor hours."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: affirmations
+    attributes:
+      label: "Contributor Affirmations"
+      options:
+        - label: "I confirm this information is physically accurate to the best of my knowledge and is not fabricated."
+          required: true
+        - label: "I have checked the HosurOne directory and confirmed this place is not a duplicate."
+          required: true
+

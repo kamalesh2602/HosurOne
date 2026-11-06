@@ -1,12 +1,6 @@
 import mongoose from 'mongoose';
 import Submission from './submission.model.js';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const DATA_DIR = path.resolve(__dirname, '../../data');
+import { loadJsonDataset } from '../../utils/dataLoader.js';
 
 function isDbConnected() {
   return mongoose.connection && mongoose.connection.readyState === 1;
@@ -40,17 +34,9 @@ function loadAllCuratedRecords() {
   const files = ['government.json', 'banks.json', 'hospitals.json', 'atms.json', 'places.json', 'contacts.json'];
 
   for (const f of files) {
-    try {
-      const p = path.join(DATA_DIR, f);
-      if (fs.existsSync(p)) {
-        const raw = fs.readFileSync(p, 'utf8');
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) {
-          records.push(...parsed);
-        }
-      }
-    } catch {
-      // Ignore read errors
+    const list = loadJsonDataset(f);
+    if (Array.isArray(list)) {
+      records.push(...list);
     }
   }
   return records;

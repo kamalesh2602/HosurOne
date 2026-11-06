@@ -1,9 +1,16 @@
 import mongoose from 'mongoose';
 import BankBranch from './bank.model.js';
-import verifiedBankBranches from './bank.data.js';
+import { loadJsonDataset } from '../../utils/dataLoader.js';
 
 function isDbConnected() {
   return mongoose.connection && mongoose.connection.readyState === 1;
+}
+
+/**
+ * Load baseline bank branch records from active JSON dataset
+ */
+export function getBaselineBankRecords() {
+  return loadJsonDataset('banks.json');
 }
 
 /**
@@ -15,9 +22,10 @@ export async function seedBankData() {
   try {
     const count = await BankBranch.countDocuments();
     if (count === 0) {
+      const records = getBaselineBankRecords();
       console.log('[Database] Seeding verified bank branches into MongoDB...');
-      await BankBranch.insertMany(verifiedBankBranches);
-      console.log(`[Database] Successfully seeded ${verifiedBankBranches.length} bank branches.`);
+      await BankBranch.insertMany(records);
+      console.log(`[Database] Successfully seeded ${records.length} bank branches.`);
     }
   } catch (error) {
     console.warn(`[Database Warning] Could not seed bank branches: ${error.message}`);
@@ -54,6 +62,7 @@ export async function getBankBranches({
       if (search && search.trim()) {
         const regex = new RegExp(search.trim(), 'i');
         query.$or = [
+          { name: regex },
           { bankName: regex },
           { branchName: regex },
           { ifsc: regex },
@@ -83,35 +92,38 @@ export async function getBankBranches({
     }
   }
 
-  // 2. Stateless / In-memory Fallback
-  let results = [...verifiedBankBranches];
+  // 2. Stateless / In-memory Fallback from active JSON dataset
+  let results = getBaselineBankRecords();
 
   if (bank && bank.toLowerCase() !== 'all') {
     const bLower = bank.toLowerCase();
-    results = results.filter((item) => item.bankName.toLowerCase().includes(bLower));
+    results = results.filter((item) => (item.bankName || item.name || '').toLowerCase().includes(bLower));
   }
 
   if (locality && locality.toLowerCase() !== 'all') {
     const locLower = locality.toLowerCase();
-    results = results.filter((item) => item.locality.toLowerCase().includes(locLower));
+    results = results.filter((item) => (item.locality || '').toLowerCase().includes(locLower));
   }
 
   if (search && search.trim()) {
     const s = search.trim().toLowerCase();
     results = results.filter(
       (item) =>
-        item.bankName.toLowerCase().includes(s) ||
-        item.branchName.toLowerCase().includes(s) ||
-        item.ifsc.toLowerCase().includes(s) ||
-        item.address.toLowerCase().includes(s) ||
-        item.locality.toLowerCase().includes(s)
+        (item.name || '').toLowerCase().includes(s) ||
+        (item.bankName || '').toLowerCase().includes(s) ||
+        (item.branchName || '').toLowerCase().includes(s) ||
+        (item.ifsc || '').toLowerCase().includes(s) ||
+        (item.address || '').toLowerCase().includes(s) ||
+        (item.locality || '').toLowerCase().includes(s)
     );
   }
 
   // Sort alphabetically by bank name then branch name
   results.sort((a, b) => {
-    const cmp = a.bankName.localeCompare(b.bankName);
-    return cmp !== 0 ? cmp : a.branchName.localeCompare(b.branchName);
+    const bA = a.bankName || a.name || '';
+    const bB = b.bankName || b.name || '';
+    const cmp = bA.localeCompare(bB);
+    return cmp !== 0 ? cmp : (a.branchName || '').localeCompare(b.branchName || '');
   });
 
   const total = results.length;
@@ -152,9 +164,10 @@ export async function getBankBranchById(id) {
   }
 
   const idUpper = id.toUpperCase();
+  const baseline = getBaselineBankRecords();
   return (
-    verifiedBankBranches.find(
-      (item) => item.id === id || item.ifsc.toUpperCase() === idUpper
+    baseline.find(
+      (item) => item.id === id || (item.ifsc && item.ifsc.toUpperCase() === idUpper)
     ) || null
   );
 }
@@ -163,5 +176,5 @@ export default {
   seedBankData,
   getBankBranches,
   getBankBranchById,
+  getBaselineBankRecords,
 };
-

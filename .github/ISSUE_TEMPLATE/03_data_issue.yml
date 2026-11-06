@@ -1,0 +1,34 @@
+name: "🔍 Data Issue / Missing Information"
+description: "Report missing regional coverage, broken map coordinates, or formatting discrepancies in our datasets."
+title: "[Data Issue]: "
+labels: ["data-quality", "dataset-audit"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Report a Data Issue or Coverage Gap
+        Use this template if you notice an entire neighborhood missing, coordinates plotting in the wrong taluk, or schema issues.
+
+  - type: input
+    id: dataset_affected
+    attributes:
+      label: "Dataset Affected"
+      placeholder: "e.g., hospitals.json, places.json, or specific locality"
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue_description
+    attributes:
+      label: "Description of the Issue"
+      description: "Describe what is missing, broken, or inconsistent in our current records."
+      placeholder: "e.g., Kelamangalam taluk has 3 missing rural health sub-centres along the Rayakottai border."
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested_resolution
+    attributes:
+      label: "Suggested Resolution (Optional)"
+      placeholder: "How can our team best fix or verify this gap?"
+

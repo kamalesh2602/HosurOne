@@ -1,0 +1,76 @@
+name: "✏️ Existing Listing Correction"
+description: "Suggest a correction for an outdated phone number, incorrect address, relocated spot, or changed hours in HosurOne."
+title: "[Correction]: "
+labels: ["data-correction", "verified-update"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Help us keep Hosur's regional directory up to date!
+        Spotted an incorrect phone number, shifted branch, or updated hospital casualty timing? Let us know below.
+
+  - type: input
+    id: existing_listing_name
+    attributes:
+      label: "Name of Existing Listing"
+      description: "Name of the place as currently shown on HosurOne."
+      placeholder: "e.g., Hosur Government District Headquarters Hospital"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: "Category"
+      options:
+        - "Healthcare (Hospital, PHC, Clinic, Pharmacy)"
+        - "Food & Dining (Restaurant, Cafe, Bakery, Mess)"
+        - "Banks & ATMs"
+        - "Explore & Tourism (Park, Lake, Temple, Heritage)"
+        - "Government & Public Services"
+        - "Transport & Transit"
+        - "Other Local Facilities"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: correction_type
+    attributes:
+      label: "What needs to be corrected?"
+      options:
+        - "Phone number has changed / is invalid"
+        - "Address or landmark is incorrect"
+        - "Facility has relocated to a new address"
+        - "Operating hours or visiting times changed"
+        - "Coordinates / Map pin is inaccurate"
+        - "Facility is permanently closed or demolished"
+        - "Other correction"
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_changes
+    attributes:
+      label: "Details of the Correction"
+      description: "Clearly state what is currently wrong, and what the correct information should be."
+      placeholder: "e.g., The hospital casualty contact number changed from 04344-XXXXXX to 04344-YYYYYY. Also, the outpatient building moved 50 meters south."
+    validations:
+      required: true
+
+  - type: input
+    id: source_url
+    attributes:
+      label: "Verification Source or Evidence"
+      description: "Link to official gazette, photograph of new board, official website, or recent visit."
+      placeholder: "e.g., Visited on 2026-11-06; verified new reception board."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: affirmations
+    attributes:
+      label: "Contributor Affirmations"
+      options:
+        - label: "I confirm this correction reflects verified ground truth."
+          required: true
+

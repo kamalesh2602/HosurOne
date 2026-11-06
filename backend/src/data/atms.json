@@ -10,8 +10,13 @@
     "pincode": "635109",
     "latitude": 12.7359,
     "longitude": 77.8284,
+    "coordinates": {
+      "latitude": 12.7359,
+      "longitude": 77.8284
+    },
     "hasCashDeposit": true,
     "sourceUrl": "https://sbi.bank.in/web/atm-locator",
+    "officialSource": "https://sbi.bank.in/web/atm-locator",
     "lastVerified": "2026-11-06",
     "verificationStatus": "verified"
   },
@@ -26,8 +31,13 @@
     "pincode": "635126",
     "latitude": 12.7552,
     "longitude": 77.8106,
+    "coordinates": {
+      "latitude": 12.7552,
+      "longitude": 77.8106
+    },
     "hasCashDeposit": false,
     "sourceUrl": "https://sbi.bank.in/web/atm-locator",
+    "officialSource": "https://sbi.bank.in/web/atm-locator",
     "lastVerified": "2026-11-06",
     "verificationStatus": "verified"
   },
@@ -42,26 +52,35 @@
     "pincode": "635109",
     "latitude": 12.7345,
     "longitude": 77.8278,
+    "coordinates": {
+      "latitude": 12.7345,
+      "longitude": 77.8278
+    },
     "hasCashDeposit": false,
     "sourceUrl": "https://canarabank.com/atm-locator",
+    "officialSource": "https://canarabank.com/atm-locator",
     "lastVerified": "2026-11-06",
     "verificationStatus": "verified"
   },
   {
-    "id": "atm-hdfc-bagalur-road",
-    "name": "HDFC Bank 24/7 ATM & Cash Recycler",
+    "id": "atm-hdfc-sipcot-gate",
+    "name": "HDFC Bank 24/7 ATM & Recycler",
     "category": "ATM",
-    "description": "Multi-function 24-hour ATM and automated cash recycler accepting cash deposits and cardless cash withdrawals.",
+    "description": "24-hour ATM and cash recycler for debit card cash withdrawals and instant credit to accounts.",
     "bankName": "HDFC Bank",
-    "address": "Ground Floor, 13/2B, Bagalur Road, Hosur - 635109",
-    "locality": "Hosur Main",
-    "pincode": "635109",
-    "latitude": 12.7391,
-    "longitude": 77.8292,
+    "address": "Bangalore Road, Near SIPCOT Phase 1 Arch, Hosur - 635126",
+    "locality": "SIPCOT",
+    "pincode": "635126",
+    "latitude": 12.7523,
+    "longitude": 77.8139,
+    "coordinates": {
+      "latitude": 12.7523,
+      "longitude": 77.8139
+    },
     "hasCashDeposit": true,
-    "sourceUrl": "https://www.hdfcbank.com/atm-locator",
+    "sourceUrl": "https://near-me.hdfcbank.com/branch-atm-locator/",
+    "officialSource": "https://near-me.hdfcbank.com/branch-atm-locator/",
     "lastVerified": "2026-11-06",
     "verificationStatus": "verified"
   }
 ]
-
