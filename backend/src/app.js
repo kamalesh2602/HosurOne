@@ -4,6 +4,7 @@ import config from './config/env.js';
 import apiRoutes from './routes/index.js';
 import notFoundHandler from './middleware/notFound.middleware.js';
 import errorHandler from './middleware/error.middleware.js';
+import rateLimiter from './middleware/rateLimiter.middleware.js';
 
 const app = express();
 
@@ -18,7 +19,7 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (such as mobile apps, curl, or Postman)
+      // Allow requests with no origin (such as server-to-server, curl, Postman)
       if (!origin) return callback(null, true);
 
       if (allowedOrigins.indexOf(origin) !== -1 || !config.isProduction) {
@@ -30,6 +31,15 @@ app.use(
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  })
+);
+
+// Apply rate limiting (120 requests per minute per IP)
+app.use(
+  rateLimiter({
+    windowMs: 60 * 1000,
+    maxRequests: 120,
+    message: 'Too many requests from this IP to HosurOne API. Please try again in a minute.',
   })
 );
 
@@ -52,13 +62,15 @@ if (!config.isProduction) {
 // Mount all API routes under /api
 app.use('/api', apiRoutes);
 
-// Root route redirect or information
+// Root route redirect or basic service discovery
 app.get('/', (req, res) => {
   res.status(200).json({
     service: 'HosurOne Backend API',
     tagline: 'Your Region. Your Community. One Portal.',
     health: '/api/health',
     weather: '/api/weather',
+    government: '/api/government',
+    banks: '/api/banks',
   });
 });
 
@@ -67,4 +79,3 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 export default app;
-
