@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, MapPin, Building2, Bus, HeartPulse, ArrowRight } from 'lucide-react';
+import { Search, MapPin, Building2, Bus, HeartPulse, ArrowRight, Compass } from 'lucide-react';
 
 export default function Hero({ onOpenSuggest }) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -12,17 +12,21 @@ export default function Hero({ onOpenSuggest }) {
     navigate(`/explore?q=${encodeURIComponent(searchQuery.trim())}`);
   };
 
-  const handleQuickTagClick = (tag) => {
-    setSearchQuery(tag);
-    navigate(`/explore?q=${encodeURIComponent(tag)}`);
+  const handleQuickTagClick = (item) => {
+    setSearchQuery(item.query);
+    if (item.target === 'directory') {
+      navigate(`/directory?q=${encodeURIComponent(item.query)}`);
+    } else {
+      navigate(`/explore?q=${encodeURIComponent(item.query)}`);
+    }
   };
 
   const popularSearches = [
-    { label: 'Bus Stand', query: 'Hosur Bus Stand', icon: Bus },
-    { label: 'Taluk Office', query: 'Taluk Office', icon: Building2 },
-    { label: 'Government Hospital', query: 'Government Hospital', icon: HeartPulse },
-    { label: 'E-Sevai Centre', query: 'E-Sevai', icon: Building2 },
-    { label: 'SIPCOT Industrial Area', query: 'SIPCOT', icon: MapPin },
+    { label: 'Taluk Office', query: 'Taluk Office', icon: Building2, target: 'directory' },
+    { label: 'Government Hospital', query: 'Government Hospital', icon: HeartPulse, target: 'directory' },
+    { label: 'E-Sevai Centre', query: 'E-Sevai', icon: Building2, target: 'directory' },
+    { label: 'SIPCOT Banks & ATMs', query: 'SIPCOT', icon: MapPin, target: 'directory' },
+    { label: 'Hill Temples & Lakes', query: 'Temple', icon: Compass, target: 'explore' },
   ];
 
   return (
@@ -92,7 +96,7 @@ export default function Hero({ onOpenSuggest }) {
                 <button
                   key={item.label}
                   type="button"
-                  onClick={() => handleQuickTagClick(item.query)}
+                  onClick={() => handleQuickTagClick(item)}
                   className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white border border-stone-200 text-stone-700 hover:text-emerald-900 hover:border-emerald-300 hover:bg-emerald-50/50 transition-colors cursor-pointer"
                 >
                   <item.icon className="w-3 h-3 text-emerald-700" />

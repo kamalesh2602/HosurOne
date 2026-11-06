@@ -40,7 +40,64 @@ function filterAndPaginate(items, { search = '', category = '', locality = '', p
   // Category filter
   if (category && category.toLowerCase() !== 'all') {
     const c = category.trim().toLowerCase();
-    results = results.filter((item) => (item.category || '').toLowerCase().includes(c));
+    results = results.filter((item) => {
+      const itemCat = (item.category || '').toLowerCase();
+      const itemDept = (item.department || '').toLowerCase();
+      const itemType = (item.facilityType || '').toLowerCase();
+
+      if (c === 'healthcare' || c === 'health') {
+        return (
+          (item.id && item.id.startsWith('hosp-')) ||
+          itemCat.includes('hospital') ||
+          itemCat.includes('clinic') ||
+          itemCat.includes('health') ||
+          itemCat.includes('phc') ||
+          itemType.includes('hospital') ||
+          itemType.includes('clinic')
+        );
+      }
+      if (c === 'banks-atms' || c === 'banking') {
+        return (
+          (item.id && (item.id.startsWith('bank-') || item.id.startsWith('atm-'))) ||
+          itemCat.includes('bank') ||
+          itemCat.includes('atm') ||
+          !!item.ifsc
+        );
+      }
+      if (c === 'banks' || c === 'bank') {
+        return (item.id && item.id.startsWith('bank-')) || itemCat.includes('bank') || !!item.ifsc;
+      }
+      if (c === 'atms' || c === 'atm') {
+        return (item.id && item.id.startsWith('atm-')) || itemCat.includes('atm');
+      }
+      if (c === 'government' || c === 'public services') {
+        return (
+          (item.id && item.id.startsWith('gov-')) ||
+          (itemCat.includes('government') && !itemCat.includes('hospital')) ||
+          itemCat.includes('corporation') ||
+          itemCat.includes('taluk') ||
+          itemCat.includes('revenue') ||
+          itemCat.includes('police') ||
+          itemCat.includes('rto') ||
+          itemCat.includes('transport') ||
+          itemCat.includes('post') ||
+          itemCat.includes('electricity') ||
+          itemCat.includes('esevai') ||
+          itemCat.includes('registration')
+        );
+      }
+      if (c === 'helpline' || c === 'helplines' || c === 'contacts' || c === 'emergency') {
+        return (
+          (item.id && (item.id.startsWith('cont-') || item.id.startsWith('contact-'))) ||
+          itemCat.includes('helpline') ||
+          itemCat.includes('contact') ||
+          itemCat.includes('emergency') ||
+          itemCat.includes('safety') ||
+          itemCat.includes('utility')
+        );
+      }
+      return itemCat.includes(c) || itemDept.includes(c) || itemType.includes(c);
+    });
   }
 
   // Locality filter (gracefully handling 'Hosur City' vs 'Hosur Main')
@@ -60,10 +117,15 @@ function filterAndPaginate(items, { search = '', category = '', locality = '', p
     results = results.filter(
       (item) =>
         (item.name || '').toLowerCase().includes(s) ||
+        (item.department || '').toLowerCase().includes(s) ||
         (item.description || '').toLowerCase().includes(s) ||
         (item.address || '').toLowerCase().includes(s) ||
         (item.locality || '').toLowerCase().includes(s) ||
-        (item.category || '').toLowerCase().includes(s)
+        (item.category || '').toLowerCase().includes(s) ||
+        (item.ifsc || '').toLowerCase().includes(s) ||
+        (item.bankName || '').toLowerCase().includes(s) ||
+        (item.branchName || '').toLowerCase().includes(s) ||
+        item.servicesOffered?.some((svc) => svc.toLowerCase().includes(s))
     );
   }
 
@@ -167,18 +229,21 @@ export async function getContacts(params = {}) {
 }
 
 /**
- * Get unified listing of all active regional places, hospitals, and ATMs
+ * Get unified listing of all active regional directory records (places, services, banks, healthcare, government, contacts)
  */
 export async function getAllDirectoryItems(params = {}) {
-  const places = loadJsonDataset('places.json');
+  const government = loadJsonDataset('government.json');
   const hospitals = loadJsonDataset('hospitals.json');
+  const banks = loadJsonDataset('banks.json');
   const atms = loadJsonDataset('atms.json');
+  const contacts = loadJsonDataset('contacts.json');
+  const places = loadJsonDataset('places.json');
   const published = (await getPublishedSubmissions()).map(transformSubmissionToRecord);
 
   const seenIds = new Set();
   const allItems = [];
 
-  for (const item of [...places, ...hospitals, ...atms, ...published]) {
+  for (const item of [...places, ...hospitals, ...atms, ...government, ...banks, ...contacts, ...published]) {
     if (!seenIds.has(item.id)) {
       seenIds.add(item.id);
       allItems.push(item);
@@ -188,10 +253,35 @@ export async function getAllDirectoryItems(params = {}) {
   return filterAndPaginate(allItems, params);
 }
 
+/**
+ * Get Local Directory essential services (healthcare, banks, atms, government offices, emergency helplines)
+ */
+export async function getLocalDirectoryItems(params = {}) {
+  const government = loadJsonDataset('government.json');
+  const hospitals = loadJsonDataset('hospitals.json');
+  const banks = loadJsonDataset('banks.json');
+  const atms = loadJsonDataset('atms.json');
+  const contacts = loadJsonDataset('contacts.json');
+  const published = (await getPublishedSubmissions()).map(transformSubmissionToRecord);
+
+  const seenIds = new Set();
+  const localItems = [];
+
+  for (const item of [...government, ...hospitals, ...banks, ...atms, ...contacts, ...published]) {
+    if (!seenIds.has(item.id)) {
+      seenIds.add(item.id);
+      localItems.push(item);
+    }
+  }
+
+  return filterAndPaginate(localItems, params);
+}
+
 export default {
   getPlaces,
   getHospitals,
   getAtms,
   getContacts,
   getAllDirectoryItems,
+  getLocalDirectoryItems,
 };

@@ -21,7 +21,7 @@ export default function QuickAccess() {
       name: 'Government Offices',
       description: 'Hosur City Municipal Corporation, Taluk Office, RTO, and Revenue offices.',
       icon: Landmark,
-      path: '/government',
+      path: '/directory?category=government',
       iconBg: 'bg-emerald-100 text-emerald-800',
     },
     {
@@ -29,7 +29,7 @@ export default function QuickAccess() {
       name: 'Bank Branches',
       description: 'Verified public & private bank branches, IFSC codes, and addresses across Hosur.',
       icon: Building,
-      path: '/banks',
+      path: '/directory?category=banks',
       iconBg: 'bg-blue-100 text-blue-800',
     },
     {
@@ -37,7 +37,7 @@ export default function QuickAccess() {
       name: 'Hospitals & Health',
       description: 'Hosur Government Hospital, Primary Health Centres (PHCs), and medical aid.',
       icon: HeartPulse,
-      path: '/government?category=Hospital',
+      path: '/directory?category=healthcare',
       iconBg: 'bg-rose-100 text-rose-800',
     },
     {
@@ -61,7 +61,7 @@ export default function QuickAccess() {
       name: 'Important Contacts',
       description: 'Municipal control rooms, police stations, ambulance, and utility helplines.',
       icon: PhoneCall,
-      path: '/government?category=Helpline',
+      path: '/directory?category=helplines',
       iconBg: 'bg-amber-100 text-amber-800',
     },
     {
@@ -77,7 +77,7 @@ export default function QuickAccess() {
       name: 'ATM Finder',
       description: 'Verified 24/7 ATM locations, cash deposit machines (CDMs), and cash points across Hosur.',
       icon: CreditCard,
-      path: '/explore?tab=atms',
+      path: '/directory?category=atms',
       iconBg: 'bg-indigo-100 text-indigo-800',
     },
   ];

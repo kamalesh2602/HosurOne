@@ -13,6 +13,19 @@ export async function getAll(req, res, next) {
   }
 }
 
+export async function getLocalDirectory(req, res, next) {
+  try {
+    const result = await directoryService.getLocalDirectoryItems(req.query);
+    return res.status(200).json({
+      success: true,
+      data: result.items,
+      pagination: result.pagination,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 export async function getPlaces(req, res, next) {
   try {
     const result = await directoryService.getPlaces(req.query);
@@ -67,6 +80,7 @@ export async function getContacts(req, res, next) {
 
 export default {
   getAll,
+  getLocalDirectory,
   getPlaces,
   getHospitals,
   getAtms,

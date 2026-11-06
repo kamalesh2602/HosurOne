@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
   getAll,
+  getLocalDirectory,
   getPlaces,
   getHospitals,
   getAtms,
@@ -9,8 +10,10 @@ import {
 
 const router = Router();
 
-// GET /api/directory/all
+// GET /api/directory and /api/directory/all
+router.get('/', getAll);
 router.get('/all', getAll);
+router.get('/local', getLocalDirectory);
 
 // GET /api/directory/places OR mounted directly
 router.get('/places', getPlaces);

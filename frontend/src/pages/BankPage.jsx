@@ -135,13 +135,22 @@ export default function BankPage({ onOpenSuggest }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Navigation Breadcrumb */}
         <div className="flex items-center justify-between">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-stone-600 hover:text-emerald-800 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Return to Homepage</span>
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              to="/directory?category=banks"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-stone-600 hover:text-emerald-800 transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Local Directory (Banks & ATMs)</span>
+            </Link>
+            <span className="text-stone-300">|</span>
+            <Link
+              to="/"
+              className="text-xs text-stone-500 hover:text-stone-800 transition-colors"
+            >
+              Home
+            </Link>
+          </div>
 
           {onOpenSuggest && (
             <button

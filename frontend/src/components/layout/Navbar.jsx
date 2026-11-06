@@ -12,8 +12,7 @@ export default function Navbar({ onOpenSuggest }) {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Explore', path: '/explore' },
-    { name: 'Public Services', path: '/government' },
-    { name: 'Bank Branches', path: '/banks' },
+    { name: 'Local Directory', path: '/directory' },
     { name: 'Weather', path: '/weather' },
     { name: 'Contribute', path: '/contribute' },
   ];
@@ -151,18 +150,6 @@ export default function Navbar({ onOpenSuggest }) {
                 <span>Sign In</span>
               </Link>
             )}
-
-            {/* Submit / Contribute CTA */}
-            {onOpenSuggest && (
-              <button
-                type="button"
-                onClick={() => onOpenSuggest('place')}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-emerald-800 text-white hover:bg-emerald-900 transition-colors shadow-2xs cursor-pointer"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                <span>Submit Info</span>
-              </button>
-            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -271,22 +258,6 @@ export default function Navbar({ onOpenSuggest }) {
                 <User className="w-3.5 h-3.5" />
                 <span>Sign In / Register</span>
               </Link>
-            </div>
-          )}
-
-          {onOpenSuggest && (
-            <div className="pt-2">
-              <button
-                type="button"
-                onClick={() => {
-                  closeMobileMenu();
-                  onOpenSuggest('place');
-                }}
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-800 text-white font-medium text-sm hover:bg-emerald-900 transition-colors shadow-2xs cursor-pointer"
-              >
-                <Sparkles className="w-4 h-4 text-amber-300" />
-                <span>Submit Verified Information</span>
-              </button>
             </div>
           )}
         </div>

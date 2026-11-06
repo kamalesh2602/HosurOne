@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
-  fetchAllDirectory,
   fetchPlaces,
-  fetchHospitals,
-  fetchAtms,
 } from '../services/directoryApi.js';
 import MapView from '../components/map/MapView.jsx';
 import {
@@ -23,15 +20,17 @@ import {
   Clock,
   CheckCircle2,
   AlertCircle,
+  UtensilsCrossed,
+  ShoppingBag,
 } from 'lucide-react';
 
 const CATEGORY_TABS = [
-  { id: 'all', label: 'All Listings' },
+  { id: 'all', label: 'All Places' },
   { id: 'Parks & Lakes', label: 'Parks & Lakes' },
-  { id: 'Tourist Attraction', label: 'Tourist Attractions' },
-  { id: 'Religious Place', label: 'Temples & Heritage' },
-  { id: 'hospitals', label: 'Hospitals & Clinics' },
-  { id: 'atms', label: '24/7 ATMs' },
+  { id: 'Tourist Attraction', label: 'Attractions & Heritage' },
+  { id: 'Religious Place', label: 'Temples & Sacred Sites' },
+  { id: 'Dining', label: 'Food & Dining' },
+  { id: 'Shopping', label: 'Shopping & Markets' },
 ];
 
 const LOCALITIES = [
@@ -70,23 +69,17 @@ export default function ExplorePage({ onOpenSuggest }) {
   }, [tabParam]);
 
   useEffect(() => {
-    loadDirectoryItems();
+    loadPlaces();
   }, [activeTab, locality, search]);
 
-  async function loadDirectoryItems() {
+  async function loadPlaces() {
     setIsLoading(true);
     try {
       const locFilter = locality === 'All Localities' ? '' : locality;
       let data = [];
 
       if (activeTab === 'all') {
-        const res = await fetchAllDirectory({ search, locality: locFilter });
-        data = res.items;
-      } else if (activeTab === 'hospitals') {
-        const res = await fetchHospitals({ search, locality: locFilter });
-        data = res.items;
-      } else if (activeTab === 'atms') {
-        const res = await fetchAtms({ search, locality: locFilter });
+        const res = await fetchPlaces({ search, locality: locFilter });
         data = res.items;
       } else {
         const res = await fetchPlaces({ search, category: activeTab, locality: locFilter });
@@ -95,7 +88,7 @@ export default function ExplorePage({ onOpenSuggest }) {
 
       setItems(data);
     } catch (err) {
-      console.warn('Failed loading directory:', err.message);
+      console.warn('Failed loading places:', err.message);
       setItems([]);
     } finally {
       setIsLoading(false);
@@ -121,13 +114,13 @@ export default function ExplorePage({ onOpenSuggest }) {
         <div className="max-w-7xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-900/80 border border-emerald-700/60 text-xs font-semibold text-emerald-300 mb-4">
             <Compass className="w-4 h-4 text-emerald-400" />
-            Open Regional Directory & Interactive Map
+            Discover Places & Regional Heritage
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-3">
             Explore Hosur & Surrounding Taluks
           </h1>
           <p className="text-emerald-100/90 text-sm sm:text-base max-w-3xl leading-relaxed">
-            Discover verified lakes, hill temples, cultural heritage sites, public healthcare centres, and essential facilities across Hosur, Kelamangalam, Bagalur, and Denkanikottai.
+            Discover verified lakes, hill temples, cultural heritage monuments, and scenic locations across Hosur, Bagalur, Kelamangalam, and Denkanikottai.
           </p>
 
           {/* Search bar inside hero */}
@@ -232,10 +225,58 @@ export default function ExplorePage({ onOpenSuggest }) {
         {viewMode === 'grid' && (
           <div>
             {isLoading ? (
-              <div className="text-center py-16 text-sm text-stone-500">Loading directory listings...</div>
+              <div className="text-center py-16 text-sm text-stone-500">Loading places and attractions...</div>
             ) : items.length === 0 ? (
-              <div className="bg-white rounded-2xl border border-stone-200 p-12 text-center text-sm text-stone-500">
-                No locations found matching your criteria. Try adjusting the search term or category.
+              <div className="bg-white rounded-2xl border border-stone-200 p-10 sm:p-12 text-center max-w-xl mx-auto shadow-2xs space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-stone-100 text-stone-600 flex items-center justify-center mx-auto">
+                  {activeTab === 'Dining' ? (
+                    <UtensilsCrossed className="w-6 h-6 text-amber-700" />
+                  ) : activeTab === 'Shopping' ? (
+                    <ShoppingBag className="w-6 h-6 text-purple-700" />
+                  ) : (
+                    <Compass className="w-6 h-6 text-emerald-800" />
+                  )}
+                </div>
+
+                <div className="space-y-1">
+                  <h3 className="text-base sm:text-lg font-bold text-stone-900">
+                    {activeTab === 'Dining'
+                      ? 'Food & Dining Directory in Progress'
+                      : activeTab === 'Shopping'
+                      ? 'Shopping & Markets Directory in Progress'
+                      : 'No places found matching your criteria'}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-stone-500 max-w-md mx-auto leading-relaxed">
+                    {activeTab === 'Dining'
+                      ? 'Authentic regional restaurants, traditional eateries, and cafes across Hosur are being gathered and verified by our community contributors.'
+                      : activeTab === 'Shopping'
+                      ? 'Commercial complexes, textile markets, and local retail hubs in the Hosur region are currently being curated.'
+                      : 'We could not find any destinations matching your filters. Try adjusting your search term, selecting another category, or resetting filters.'}
+                  </p>
+                </div>
+
+                <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+                  {(search || locality !== 'All Localities') && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSearch('');
+                        setLocality('All Localities');
+                      }}
+                      className="px-4 py-2 rounded-xl text-xs font-semibold bg-stone-100 hover:bg-stone-200 text-stone-700 transition-colors"
+                    >
+                      Reset Filters
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => onOpenSuggest?.('place', activeTab !== 'all' ? activeTab : 'Place')}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-800 hover:bg-emerald-900 text-white transition-colors shadow-2xs cursor-pointer"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                    <span>Contribute a Place</span>
+                  </button>
+                </div>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

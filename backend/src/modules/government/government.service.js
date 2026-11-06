@@ -16,7 +16,7 @@ export function getBaselineGovernmentRecords() {
   const gov = loadJsonDataset('government.json');
   const hospitals = loadJsonDataset('hospitals.json').map((h) => ({
     ...h,
-    department: h.department || 'Health & Family Welfare Department, Govt. of Tamil Nadu',
+    department: h.facilityType || (h.isGovernment ? 'Health & Family Welfare Department, Govt. of Tamil Nadu' : 'Healthcare Facility'),
     category: 'Hospital',
   }));
   const helplines = loadJsonDataset('contacts.json').map((c) => ({
@@ -48,8 +48,8 @@ export async function seedGovernmentData() {
     if (count === 0) {
       const records = getBaselineGovernmentRecords();
       console.log('[Database] Seeding verified government offices into MongoDB...');
-      await GovernmentOffice.insertMany(records);
-      console.log(`[Database] Successfully seeded ${records.length} government offices.`);
+      await GovernmentOffice.insertMany(records, { ordered: false });
+      console.log(`[Database] Successfully seeded government offices.`);
     }
   } catch (error) {
     console.warn(`[Database Warning] Could not seed government offices: ${error.message}`);
@@ -73,42 +73,53 @@ export async function getGovernmentOffices({
   // 1. If database is connected, query MongoDB
   if (isDbConnected()) {
     try {
-      const query = {};
-
-      if (category && category !== 'all') {
-        query.category = { $regex: new RegExp(`^${category}$`, 'i') };
+      let count = await GovernmentOffice.countDocuments();
+      if (count === 0) {
+        await seedGovernmentData();
+        count = await GovernmentOffice.countDocuments();
       }
 
-      if (locality && locality !== 'all') {
-        query.locality = { $regex: new RegExp(`^${locality}$`, 'i') };
+      if (count > 0) {
+        const query = {};
+
+        if (category && category !== 'all') {
+          query.category = { $regex: new RegExp(`^${category}$`, 'i') };
+        }
+
+        if (locality && locality !== 'all') {
+          query.locality = { $regex: new RegExp(`^${locality}$`, 'i') };
+        }
+
+        if (search && search.trim()) {
+          const regex = new RegExp(search.trim(), 'i');
+          query.$or = [
+            { name: regex },
+            { department: regex },
+            { address: regex },
+            { servicesOffered: regex },
+          ];
+        }
+
+        const [offices, total] = await Promise.all([
+          GovernmentOffice.find(query).skip(skip).limit(safeLimit).sort({ name: 1 }).lean(),
+          GovernmentOffice.countDocuments(query),
+        ]);
+
+        // If records were found, or if a specific search/filter yielded 0, return query results
+        if (offices.length > 0 || search || (category && category !== 'all') || (locality && locality !== 'all')) {
+          return {
+            offices,
+            pagination: {
+              total,
+              page: safePage,
+              limit: safeLimit,
+              totalPages: Math.ceil(total / safeLimit) || 1,
+              hasNextPage: safePage * safeLimit < total,
+              hasPrevPage: safePage > 1,
+            },
+          };
+        }
       }
-
-      if (search && search.trim()) {
-        const regex = new RegExp(search.trim(), 'i');
-        query.$or = [
-          { name: regex },
-          { department: regex },
-          { address: regex },
-          { servicesOffered: regex },
-        ];
-      }
-
-      const [offices, total] = await Promise.all([
-        GovernmentOffice.find(query).skip(skip).limit(safeLimit).sort({ name: 1 }).lean(),
-        GovernmentOffice.countDocuments(query),
-      ]);
-
-      return {
-        offices,
-        pagination: {
-          total,
-          page: safePage,
-          limit: safeLimit,
-          totalPages: Math.ceil(total / safeLimit) || 1,
-          hasNextPage: safePage * safeLimit < total,
-          hasPrevPage: safePage > 1,
-        },
-      };
     } catch (err) {
       console.warn(`[Database Fallback] Query error, falling back to in-memory verified data: ${err.message}`);
     }

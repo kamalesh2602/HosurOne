@@ -102,8 +102,8 @@ export default function Footer({ onOpenSuggest }) {
                 </Link>
               </li>
               <li>
-                <Link to="/government" className="text-stone-400 hover:text-white transition-colors">
-                  Government & Public Services
+                <Link to="/directory" className="text-stone-400 hover:text-white transition-colors">
+                  Local Directory
                 </Link>
               </li>
               <li>

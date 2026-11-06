@@ -1,10 +1,13 @@
 import app from './app.js';
 import config from './config/env.js';
 import { connectDB } from './config/db.js';
+import { seedGovernmentData } from './modules/government/government.service.js';
+import { seedBankData } from './modules/banks/bank.service.js';
 
 async function startServer() {
   // Connect to MongoDB if configured (non-blocking for weather services)
   await connectDB();
+  await Promise.allSettled([seedGovernmentData(), seedBankData()]);
 
   const server = app.listen(config.port, () => {
     console.log(`====================================================`);

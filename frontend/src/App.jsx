@@ -5,6 +5,7 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import WeatherPage from './pages/WeatherPage';
+import LocalDirectoryPage from './pages/LocalDirectoryPage';
 import GovernmentPage from './pages/GovernmentPage';
 import BankPage from './pages/BankPage';
 import ExplorePage from './pages/ExplorePage';
@@ -59,12 +60,16 @@ export default function App() {
               <Route path="/" element={<Home onOpenSuggest={handleOpenSuggest} />} />
               <Route path="/weather" element={<WeatherPage />} />
               <Route
+                path="/directory"
+                element={<LocalDirectoryPage onOpenSuggest={handleOpenSuggest} />}
+              />
+              <Route
                 path="/government"
-                element={<GovernmentPage onOpenSuggest={handleOpenSuggest} />}
+                element={<LocalDirectoryPage onOpenSuggest={handleOpenSuggest} />}
               />
               <Route
                 path="/services"
-                element={<GovernmentPage onOpenSuggest={handleOpenSuggest} />}
+                element={<LocalDirectoryPage onOpenSuggest={handleOpenSuggest} />}
               />
               <Route
                 path="/banks"

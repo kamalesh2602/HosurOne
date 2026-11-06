@@ -24,8 +24,8 @@ export async function seedBankData() {
     if (count === 0) {
       const records = getBaselineBankRecords();
       console.log('[Database] Seeding verified bank branches into MongoDB...');
-      await BankBranch.insertMany(records);
-      console.log(`[Database] Successfully seeded ${records.length} bank branches.`);
+      await BankBranch.insertMany(records, { ordered: false });
+      console.log(`[Database] Successfully seeded bank branches.`);
     }
   } catch (error) {
     console.warn(`[Database Warning] Could not seed bank branches: ${error.message}`);
@@ -49,44 +49,54 @@ export async function getBankBranches({
   // 1. If database connected, query MongoDB
   if (isDbConnected()) {
     try {
-      const query = {};
-
-      if (bank && bank !== 'all') {
-        query.bankName = { $regex: new RegExp(`^${bank}$`, 'i') };
+      let count = await BankBranch.countDocuments();
+      if (count === 0) {
+        await seedBankData();
+        count = await BankBranch.countDocuments();
       }
 
-      if (locality && locality !== 'all') {
-        query.locality = { $regex: new RegExp(`^${locality}$`, 'i') };
+      if (count > 0) {
+        const query = {};
+
+        if (bank && bank !== 'all') {
+          query.bankName = { $regex: new RegExp(`^${bank}$`, 'i') };
+        }
+
+        if (locality && locality !== 'all') {
+          query.locality = { $regex: new RegExp(`^${locality}$`, 'i') };
+        }
+
+        if (search && search.trim()) {
+          const regex = new RegExp(search.trim(), 'i');
+          query.$or = [
+            { name: regex },
+            { bankName: regex },
+            { branchName: regex },
+            { ifsc: regex },
+            { address: regex },
+            { locality: regex },
+          ];
+        }
+
+        const [branches, total] = await Promise.all([
+          BankBranch.find(query).skip(skip).limit(safeLimit).sort({ bankName: 1, branchName: 1 }).lean(),
+          BankBranch.countDocuments(query),
+        ]);
+
+        if (branches.length > 0 || search || (bank && bank !== 'all') || (locality && locality !== 'all')) {
+          return {
+            branches,
+            pagination: {
+              total,
+              page: safePage,
+              limit: safeLimit,
+              totalPages: Math.ceil(total / safeLimit) || 1,
+              hasNextPage: safePage * safeLimit < total,
+              hasPrevPage: safePage > 1,
+            },
+          };
+        }
       }
-
-      if (search && search.trim()) {
-        const regex = new RegExp(search.trim(), 'i');
-        query.$or = [
-          { name: regex },
-          { bankName: regex },
-          { branchName: regex },
-          { ifsc: regex },
-          { address: regex },
-          { locality: regex },
-        ];
-      }
-
-      const [branches, total] = await Promise.all([
-        BankBranch.find(query).skip(skip).limit(safeLimit).sort({ bankName: 1, branchName: 1 }).lean(),
-        BankBranch.countDocuments(query),
-      ]);
-
-      return {
-        branches,
-        pagination: {
-          total,
-          page: safePage,
-          limit: safeLimit,
-          totalPages: Math.ceil(total / safeLimit) || 1,
-          hasNextPage: safePage * safeLimit < total,
-          hasPrevPage: safePage > 1,
-        },
-      };
     } catch (err) {
       console.warn(`[Database Fallback] Bank query failed, using memory: ${err.message}`);
     }

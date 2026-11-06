@@ -34,6 +34,10 @@ export function fetchAllDirectory(params) {
   return fetchFromEndpoint('/directory/all', params);
 }
 
+export function fetchLocalDirectory(params) {
+  return fetchFromEndpoint('/directory/local', params);
+}
+
 export function fetchPlaces(params) {
   return fetchFromEndpoint('/places', params);
 }
@@ -50,10 +54,21 @@ export function fetchContacts(params) {
   return fetchFromEndpoint('/contacts', params);
 }
 
+export function fetchBanks(params) {
+  return fetchFromEndpoint('/banks', params);
+}
+
+export function fetchGovernment(params) {
+  return fetchFromEndpoint('/government', params);
+}
+
 export default {
   fetchAllDirectory,
+  fetchLocalDirectory,
   fetchPlaces,
   fetchHospitals,
   fetchAtms,
   fetchContacts,
+  fetchBanks,
+  fetchGovernment,
 };
