@@ -4,6 +4,7 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import WeatherPage from './pages/WeatherPage';
+import GovernmentPage from './pages/GovernmentPage';
 import PlaceholderPage from './pages/PlaceholderPage';
 import SuggestModal from './components/common/SuggestModal';
 
@@ -52,15 +53,19 @@ export default function App() {
             <Route path="/" element={<Home onOpenSuggest={handleOpenSuggest} />} />
             <Route path="/weather" element={<WeatherPage />} />
             <Route
+              path="/government"
+              element={<GovernmentPage onOpenSuggest={handleOpenSuggest} />}
+            />
+            <Route
+              path="/services"
+              element={<GovernmentPage onOpenSuggest={handleOpenSuggest} />}
+            />
+            <Route
               path="/explore"
               element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
             />
             <Route
               path="/transport"
-              element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
-            />
-            <Route
-              path="/services"
               element={<PlaceholderPage onOpenSuggest={handleOpenSuggest} />}
             />
             <Route
